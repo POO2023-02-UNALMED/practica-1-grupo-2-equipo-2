@@ -11,6 +11,7 @@ import gestorAplicacion.sujeto.*;
 
 public class Consulta extends Tratamiento{
 	
+	// Atributos
 	static private long contador = 0; 
 	private final long ID;
 	protected Rutina rutina;
