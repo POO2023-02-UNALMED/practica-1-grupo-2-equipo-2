@@ -8,16 +8,16 @@ import gestorAplicacion.adminHospitalaria.Cita;
 import gestorAplicacion.instalaciones.Lugar;
 import gestorAplicacion.sujeto.*;
 
-//Descripción: Esta clase se encarga ...
+// Descripción: Esta clase abstracta representa un tratamiento médico que hereda de EvaluacionMedica.
 public abstract class Tratamiento extends EvaluacionMedica{
 	
-	//Atributos
+	// Atributos
 	protected Lugar lugar;
 	protected Enfermedad enfermedad;
 	protected boolean pagada;
 	protected Cita cita;
 	
-	//Constructor
+	// Constructor
 	protected Tratamiento(String nombre, int cantidad, Especialidad especialidad, Enfermedad enfermedad, Cita cita) {
         super(nombre, cantidad, especialidad);
         this.enfermedad = enfermedad;
@@ -36,7 +36,7 @@ public abstract class Tratamiento extends EvaluacionMedica{
         pagada = true;
     }
 	
-	//Getters y setters de pagada
+	//Getters y setters
 	public boolean isPagada() {
         return pagada;
     }
@@ -45,12 +45,10 @@ public abstract class Tratamiento extends EvaluacionMedica{
         this.pagada = pagada;
     }
 	
-	// Getter para enfermedad
     public Enfermedad getEnfermedad() {
         return enfermedad;
     }
 
-    // Setter para enfermedad
     public void setEnfermedad(Enfermedad enfermedad) {
         this.enfermedad = enfermedad;
     }
