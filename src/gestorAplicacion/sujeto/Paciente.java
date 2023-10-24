@@ -17,9 +17,8 @@ public class Paciente extends Persona implements Pago{
 	private ArrayList<Tratamiento> serviciosSeleccionados = new ArrayList<>();
 
 	// Atributos
+	/*Aplica ligadura dinamica porque entran objetos de tipo consulta, terapia y cirugia */
         private HistoriaClinica historiaClinica;
-        
-        /*Aplica ligadura dinamica porque entran objetos de tipo consulta, terapia y cirugia */
         private final ArrayList<Consulta> consultas; 
         private Habitacion habitacionAsignada;
         private CuentaBancaria cuentaBancaria; 
@@ -79,7 +78,9 @@ public class Paciente extends Persona implements Pago{
             // Recorre la lista de servicios sin pagar y agrega la información al StringBuilder
             for (int i = 0; i < serviciosSinPagar.size(); i++) {
                 Tratamiento servicio = serviciosSinPagar.get(i);
-                infoServiciosSinPagar.append(ConsoleColors.RED_BACKGROUND_BRIGHT + ConsoleColors.WHITE_BOLD_BRIGHT + "Servicio N°").append(i).append("\n").append(ConsoleColors.YELLOW_BACKGROUND_BRIGHT + ConsoleColors.BLUE_BOLD_BRIGHT + "\n").append(servicio.toString()).append("\n").append(ConsoleColors.RESET + "\n");
+                infoServiciosSinPagar.append(ConsoleColors.RED_BACKGROUND_BRIGHT + ConsoleColors.WHITE_BOLD_BRIGHT + "Servicio N°")
+                .append(i).append("\n").append(ConsoleColors.YELLOW_BACKGROUND_BRIGHT + ConsoleColors.BLUE_BOLD_BRIGHT + "\n")
+                .append(servicio.toString()).append("\n").append(ConsoleColors.RESET + "\n");
             }
         } else {
             return "No hay servicios pendientes de pago";
