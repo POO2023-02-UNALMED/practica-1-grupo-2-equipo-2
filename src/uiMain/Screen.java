@@ -207,7 +207,7 @@ public class Screen {
                     System.out.println("Entrar el id del paciente que desea una cita");
                     id = myObj.nextInt();
                     F4.generarRutina(h.buscarPaciente(id));
-                    F4.generarEjerciciosOrdenados();
+                    //F4.generarEjerciciosOrdenados();
                     break;
                 
                 case "6":
@@ -217,7 +217,7 @@ public class Screen {
                 
                 case "7":
                 	System.out.println("================================================");
-                	System.out.println("||   Registrar los datos de la orden medica   ||");
+                	System.out.println("||   Registrar los datos de la orden medicaa   ||");
                 	System.out.println("================================================");
                 	
                 	System.out.println(F2.azul + "Generando la orden medica en el sistema...... se tardara unos minutos" + F2.reiniciar);
