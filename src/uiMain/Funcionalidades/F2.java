@@ -49,7 +49,7 @@ public class F2 {
             }
         }
 
-        System.out.println("El paciente no tiene restricciones médicas.");
+        System.out.println("El paciente no tiene restricciones médicas..");
         return null;
     }
 
