@@ -128,6 +128,7 @@ public class Screen {
         int cantidad;
         String tipologia;
         String sintomas;
+        String recomendaciones;
         
         System.out.println("Entra el nombre del hospital");
         String nombre = myObj.nextLine();
@@ -261,6 +262,7 @@ public class Screen {
                 	else {
                 		 enfermedad=new Enfermedad(nombreEnfermedad,cantidad,especialidad,tipologia,sintomas,restriccion);
                 	}	
+                	
                 	recomendaciones=myObj.next();
                 	System.out.println("Generando orden medica......");
                 	OrdenMedica ordenMedica= new OrdenMedica(paciente,enfermedad,medico,recomendaciones);

@@ -24,7 +24,7 @@ public class OrdenMedica {
 //Metodos
 	
 
-	public OrdenMedica(Paciente paciente,Enfermedad enfermedad, Medico medico, Tratamiento tratamientos, String recomendaciones) {
+	public OrdenMedica(Paciente paciente,Enfermedad enfermedad, Medico medico,String recomendaciones) {
 		this.paciente=paciente;
 		this.enfermedad = enfermedad;
 		this.medico = medico;
