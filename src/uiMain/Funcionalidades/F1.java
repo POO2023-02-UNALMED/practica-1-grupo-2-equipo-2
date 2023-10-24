@@ -74,15 +74,21 @@ public class F1 {
 	            // Se agenda la cita
 	            Cita nuevaCita = paciente.agendarCita(medicoDisponible, fecha);
 
-	            // Se informa al usuario sobre la cita agendada
-	            System.out.println("¡Cita agendada con éxito!");
-	            System.out.println("Médico: " + nuevaCita.getMedico().getNombre());
-	            System.out.println("Especialidad: " + nuevaCita.getMedico().obtenerEspecialidad());
-	            System.out.println("Fecha: " + nuevaCita.getFecha());
+	            // Imprimir hoja de cita
+	            System.out.println("--------------------------------------------------");
+	            System.out.println("|               Hoja de Cita Médica              |");
+	            System.out.println("--------------------------------------------------");
+	            System.out.println("| Paciente: " + paciente.getNombre());
+	            System.out.println("| ID: " + paciente.getId());
+	            System.out.println("| Categoría: " + paciente.getCategoria());
+	            System.out.println("| Especialidad: " + nuevaCita.getMedico().obtenerEspecialidad());
+	            System.out.println("| Médico: " + nuevaCita.getMedico().getNombre());
+	            System.out.println("| Fecha: " + nuevaCita.getFecha());
+	            System.out.println("--------------------------------------------------");
 	        } else {
 	            System.out.println("Lo sentimos, no hay médicos disponibles para la especialidad seleccionada.");
 	        }
-			scanner.close();
+	        scanner.close();
 	    }
 
 public static Categoria obtenerCategoriaPorInput() {
