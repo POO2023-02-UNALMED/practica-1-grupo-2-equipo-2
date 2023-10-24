@@ -19,6 +19,7 @@ public class HistoriaClinica {
 	private ArrayList <Terapia> historialTerapias;
 	private ArrayList <Cirugia> historialCirugias;
 	private ArrayList <Consulta> historialConsultas;
+	private ArrayList <Rutina> historialRutinas;
 	
 //Constructor
 	public HistoriaClinica(Paciente paciente) {
@@ -28,6 +29,7 @@ public class HistoriaClinica {
         this.historialTerapias = new ArrayList<>();
         this.historialCirugias = new ArrayList<>();
         this.historialConsultas = new ArrayList<>();
+        this.setHistorialRutinas(new ArrayList<>());
     }
 
 	// Getter para PACIENTE
@@ -79,5 +81,13 @@ public class HistoriaClinica {
     public void setHistorialConsultas(ArrayList<Consulta> historialConsultas) {
         this.historialConsultas = historialConsultas;
     }
+
+	public ArrayList <Rutina> getHistorialRutinas() {
+		return historialRutinas;
+	}
+
+	public void setHistorialRutinas(ArrayList <Rutina> historialRutinas) {
+		this.historialRutinas = historialRutinas;
+	}
 	
 }
