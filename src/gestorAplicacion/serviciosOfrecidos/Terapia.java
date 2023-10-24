@@ -27,6 +27,11 @@ public class Terapia extends Consulta{
         super(nombre, cantidad, especialidad, enfermedad, cita); 
     }
     
+    
+    /*Calcula el precio de la terapia para un paciente dado.
+     * Este método es una implementación de un método abstracto heredado de la clase Tratamiento.
+     * @param paciente El paciente para el cual se calcula el precio.
+     * @return El costo total de la terapia.*/
     @Override
     public double calcularPrecio(Paciente paciente) {
         // Obtén la categoría del paciente
@@ -40,6 +45,9 @@ public class Terapia extends Consulta{
         return costoTotal;
     }
     
+    /*Convierte la información de la terapia en una cadena de texto.
+     * Este método es una implementación de un método abstracto heredado de la clase Tratamiento.
+     * @return Una cadena de texto que representa la información de la terapia.*/
     @Override
     public String toString() {
         return  "* Terapia con el médico: " + this.getCita().getMedico().getNombre() + "\n" +
