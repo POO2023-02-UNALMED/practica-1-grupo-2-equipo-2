@@ -216,33 +216,55 @@ public class Screen {
                 
                 case "7":
                 	System.out.println("================================================");
-                	System.out.println("||   Registrar los datos de la enfermedad      ||");
+                	System.out.println("||   Registrar los datos de la orden medica   ||");
                 	System.out.println("================================================");
                 	
                 	System.out.println(F2.azul + "Generando la orden medica en el sistema...... se tardara unos minutos" + F2.reiniciar);
+                    System.out.println("Entrar nombre del paciente");
+                    nombre = myObj.nextLine();
+                    System.out.println("Entrar el id del paciente");
+                    id = myObj.nextInt();
+                    System.out.println("Entrar el sexo del paciente");
+                    sexo = myObj.next();
+                    System.out.println("Entrar el peso del paciente");
+                    peso = myObj.nextInt();
+                    System.out.println("Entrar la talla del paciente");
+                    talla =myObj.nextInt();
+                    
+                    
+                    Paciente paciente=new Paciente(F1.obtenerCategoriaPorInput(),id,nombre,sexo,peso,talla);
                 	System.out.println("Nombre de la enfermedad");
-                	nombreEnfermedad= myObj.nextLine();
+                	nombreEnfermedad= myObj.next();
                 	System.out.println("Ingrese la cantidad del paciente");
                 	cantidad=myObj.nextInt();
                 	System.out.println("Ingresar la especialidad del paciente");
                 	Especialidad especialidad=F2.obtenerEspecialidad();
-                	System.out.println("Ingrese la tipologia del paciente");
-                	tipologia=myObj.nextLine();
-                	System.out.println("Ingrese los sintomas del paciente");
-                	sintomas=myObj.nextLine();
-                	Restriccion restriccion=F2.restriccionPaciente();
+                	System.out.print("Ingrese la tipologia del paciente: ");
+                	tipologia=myObj.next();
+                	
+                	
+                	System.out.print("Ingrese los sintomas del paciente: ");
+                	
+                	sintomas=myObj.next();
+                
+                	
+             
+                	Medico medico=F2.asignarMedico();
+                	System.out.println(medico);
+                	
+                   	Restriccion restriccion=F2.restriccionPaciente();
+                   	Enfermedad enfermedad;
                 	if(restriccion==null) {
-                		Enfermedad enfermedad=new Enfermedad(nombreEnfermedad,cantidad,especialidad,tipologia,sintomas);
+                		enfermedad=new Enfermedad(nombreEnfermedad,cantidad,especialidad,tipologia,sintomas);
+                		
                 	}
                 	else {
-                		Enfermedad enfermedad=new Enfermedad(nombreEnfermedad,cantidad,especialidad,tipologia,sintomas,restriccion);
-                	}
-                	
-                	
-                	
-                	
-                	
-                	//OrdenMedica ordenMedica=new OrdenMedica(p);
+                		 enfermedad=new Enfermedad(nombreEnfermedad,cantidad,especialidad,tipologia,sintomas,restriccion);
+                	}	
+                	recomendaciones=myObj.next();
+                	System.out.println("Generando orden medica......");
+                	OrdenMedica ordenMedica= new OrdenMedica(paciente,enfermedad,medico,recomendaciones);
+                	OrdenMedica crearOrden= F2.generarOrdenMedica(ordenMedica);
                 	break;
 
                 case "quit":
