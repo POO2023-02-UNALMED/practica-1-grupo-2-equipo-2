@@ -127,12 +127,23 @@ public static void generarCita(Paciente paciente) {
 	    }
 
 
-	 public static Categoria obtenerCategoriaPorInput() {
-	        Scanner scanner = new Scanner(System.in);
+public static Categoria obtenerCategoriaPorInput() {
+    Scanner scanner = new Scanner(System.in);
+    Categoria categoria = null;
+    boolean entradaValida = false;
 
-	        System.out.print("Ingrese su categoría (ALTO_RENDIMIENTO, OLIMPICO, AFICIONADOS): ");
-	        String categoriaString = scanner.next();
-	        return Categoria.valueOf(categoriaString);
-	    }
+    do {
+        try {
+            System.out.print("Ingrese su categoría (ALTO_RENDIMIENTO, OLIMPICO, AFICIONADOS): ");
+            String categoriaString = scanner.next();
+            categoria = Categoria.valueOf(categoriaString);
+            entradaValida = true;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Categoría no válida. Por favor, ingrese una categoría válida.");
+        }
+    } while (!entradaValida);
+
+    return categoria;
+}
 
 }
