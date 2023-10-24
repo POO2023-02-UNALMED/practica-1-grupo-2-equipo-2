@@ -14,18 +14,23 @@ public class Terapia extends Consulta{
 	// Constante específica para la clase Terapia
 	public static final double PRECIO_BASE_TERAPIA = 2000000;
 	
+	//Atributos 
+	int duracion;
+	int intensidad;
 	 
     /* Este constructor se ejecuta cuando la cantidad de citas de terapia necesarias para 
      * el tratamiento es solo una, devolviendo ese valor 1 en cantidad */
-	public Terapia(String nombre, Especialidad especialidad, Enfermedad enfermedad, Cita cita) {
-		this(nombre, 1, especialidad, enfermedad, cita);
+	public Terapia(String nombre, Especialidad especialidad, Enfermedad enfermedad, Cita cita, int duracion, int intensidad) {
+		this(nombre, 1, especialidad, enfermedad, cita, duracion, intensidad);
 	}
 	/* Este constructor se ejecuta cuando el medico necesita especificar la cantidad
      * de consultas necesarias para un tratamiento*/
 	// Constructor específico para Terapia
-    public Terapia(String nombre, int cantidad, Especialidad especialidad, Enfermedad enfermedad, Cita cita) {
-        super(nombre, cantidad, especialidad, enfermedad, cita); 
-    }
+	 public Terapia(String nombre, int cantidad, Especialidad especialidad, Enfermedad enfermedad, Cita cita, int duracion, int intensidad) {
+	        super(nombre, cantidad, especialidad, enfermedad, cita); 
+	        this.duracion = duracion;
+	        this.intensidad = intensidad;
+	    }
     
     
     /*Calcula el precio de la terapia para un paciente dado.
@@ -58,7 +63,7 @@ public class Terapia extends Consulta{
                 "* Precio: " + this.calcularPrecio(this.getCita().getPaciente()) + "\n";
     }
 
-  //Getters y setters
+    //Getters y setters
   	public Cita getCita() {
   		return super.cita;
   	}
@@ -77,4 +82,21 @@ public class Terapia extends Consulta{
   	public Paciente getPaciente() {
   		return super.cita.getPaciente();
   	}
+  	
+  	public int getDuracion() {
+  		return duracion;
+  	}
+  	
+  	public void setDuracion(int duracion) {
+  		this.duracion = duracion;
+  	}
+  	
+  	public int getIntensidad() {
+  		return intensidad;
+  	}
+  	
+  	public void setIntensidad(int intensidad) {
+  		this.intensidad = intensidad;
+  	}
+  	
 }
