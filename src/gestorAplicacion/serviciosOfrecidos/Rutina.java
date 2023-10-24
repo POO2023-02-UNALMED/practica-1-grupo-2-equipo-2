@@ -79,13 +79,9 @@ public class Rutina{
 	}
 	
 	//Agraga nuevos elementos a la lista sin eliminarla
-	public void agregarEjerciciosOrdenados(Ejercicio[] args) {
-		ArrayList<Ejercicio>listaTemporal = new ArrayList<>();
-		for(int i = 0; i < args.length; i++) {
-			listaTemporal.add(args[i]);
-		}
+	public void agregarEjercicioOrdenado(Ejercicio ejercicio) {
 		
-		this.ejerciciosOrdenados.addAll(listaTemporal);
+		this.ejerciciosOrdenados.add(ejercicio);
 	}
 	
 	//Eliminar ejercicio de la rutina

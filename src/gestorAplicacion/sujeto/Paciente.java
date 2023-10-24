@@ -216,6 +216,10 @@ public class Paciente extends Persona implements Pago{
     	historiaClinica.getHistorialConsultas().add(nuevaConsulta);
     }
     
+    public void actualizarHistorialRutinas (Rutina nuevaRutina) {
+    	historiaClinica.getHistorialRutinas().add(nuevaRutina);
+    }
+    
     
     
     
