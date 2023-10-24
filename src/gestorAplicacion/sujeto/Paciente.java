@@ -27,8 +27,6 @@ public class Paciente extends Persona implements Pago{
         private int peso;
         private int talla;
 
-
-    
     // Constructor principal
     public Paciente(Categoria categoria, int numeroIdentificacion, String nombre,String sexo,int peso,int talla) {
 		super(categoria, numeroIdentificacion, nombre);
@@ -45,7 +43,7 @@ public class Paciente extends Persona implements Pago{
         return "nombre : \u001B[34m"+this.nombre +"\u001B[0m id : \u001B[34m"+ this.numeroIdentificacion +"\u001B[0m categoria \u001B[34m" + this.categoria+"\u001B[0m peso : \u001B[34m"+ this.peso +"\u001B[0m sexo : \u001B[34m"+ this.sexo +"\u001B[0m talla : \u001B[34m"+ this.talla+"\u001B[0m";
     }
     
-// ----------------------------------------------------------------------------- //
+    // ----------------------------------------------------------------------------- //
     
     // Implementación del método obtenerServiciosSinPagar de la interfaz Pago
     @Override
@@ -92,6 +90,10 @@ public class Paciente extends Persona implements Pago{
     
     // ----------------------------------------------------------------------------- //
 
+    /* Este método permite al paciente seleccionar servicios pendientes de pago especificando los índices correspondientes.
+     Calcula el costo total de los servicios seleccionados, aplicando descuentos si corresponde.
+     Además, calcula el costo total con IVA incluido y retorna estos tres costos en un arreglo.
+     Si no se selecciona ningún servicio, el costo total y el costo total con descuento serán iguales. */
  
     public double[] seleccionarServiciosAPagar(String indices) {
         // Divide la cadena de índices en un array de strings
