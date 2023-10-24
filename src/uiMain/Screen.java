@@ -262,7 +262,7 @@ public class Screen {
                 	else {
                 		 enfermedad=new Enfermedad(nombreEnfermedad,cantidad,especialidad,tipologia,sintomas,restriccion);
                 	}	
-                	
+                	System.out.println("Escribir las recomendaciones que se le daran al paciente");
                 	recomendaciones=myObj.next();
                 	System.out.println("Generando orden medica......");
                 	OrdenMedica ordenMedica= new OrdenMedica(paciente,enfermedad,medico,recomendaciones);
