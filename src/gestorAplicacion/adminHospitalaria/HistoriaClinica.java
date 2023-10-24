@@ -90,4 +90,7 @@ public class HistoriaClinica {
 		this.historialRutinas = historialRutinas;
 	}
 	
+	public void actualizarHistorialRutinas(Rutina rutina) {
+		this.historialRutinas.add(rutina);
+	}
 }
