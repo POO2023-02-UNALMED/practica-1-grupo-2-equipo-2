@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
+
 //Importar las clases de las cuales sus objetos voy a serializar
 //Recordar que si un objeto serializado contiene otros objetos
 //Las clases de los objetos contenidos tambien deben implementar:
