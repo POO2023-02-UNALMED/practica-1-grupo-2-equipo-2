@@ -15,6 +15,7 @@ public class Paciente extends Persona implements Pago{
 
 	private ArrayList<Tratamiento> serviciosSinPagar = new ArrayList<>();
 	private ArrayList<Tratamiento> serviciosSeleccionados = new ArrayList<>();
+	private ArrayList<Cita> citas = new ArrayList<>();
 
 	// Atributos
 	/*Aplica ligadura dinamica porque entran objetos de tipo consulta, terapia y cirugia */
