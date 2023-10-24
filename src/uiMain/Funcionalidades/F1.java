@@ -12,12 +12,20 @@ public class F1 {
         Medico fisioterapeuta = new Medico(Categoria.OLIMPICO, 789013, "Dr. Pepe", Especialidad.FISIOTERAPEUTA);
         Medico nutricionista = new Medico(Categoria.AFICIONADOS, 789014, "Dra. Molly", Especialidad.NUTRICIONISTA);
         Medico optometrista = new Medico(Categoria.OLIMPICO, 789015, "Dra. Margarita", Especialidad.OPTOMETRISTA);
+        Medico ortopedista2 = new Medico(Categoria.OLIMPICO, 7893, "Dr. Mario", Especialidad.ORTOPEDISTA);
+        Medico fisioterapeuta2 = new Medico(Categoria.ALTO_RENDIMIENTO, 7892, "Dr. lugui", Especialidad.FISIOTERAPEUTA);
+        Medico nutricionista2 = new Medico(Categoria.AFICIONADOS, 7890, "Dr. yoshi", Especialidad.NUTRICIONISTA);
+        Medico optometrista2 = new Medico(Categoria.AFICIONADOS, 7891, "Dra. rosalina", Especialidad.OPTOMETRISTA);
 
       //Los medicos de prueba se guaradan en una lista.
         ListaProfesionales.agregarProfesional(ortopedista);
         ListaProfesionales.agregarProfesional(fisioterapeuta);
         ListaProfesionales.agregarProfesional(nutricionista);
         ListaProfesionales.agregarProfesional(optometrista);
+        ListaProfesionales.agregarProfesional(ortopedista2);
+        ListaProfesionales.agregarProfesional(fisioterapeuta2);
+        ListaProfesionales.agregarProfesional(nutricionista2);
+        ListaProfesionales.agregarProfesional(optometrista2);
     }
 	
 	 public static void generarCita() {
