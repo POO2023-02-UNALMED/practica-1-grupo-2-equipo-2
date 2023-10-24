@@ -20,18 +20,17 @@ public class OrdenMedica {
 	private Tratamiento tratamientos;
 	private String recomendaciones;
 	
-
-//Metodos
-	
-
+	// Constructor
 	public OrdenMedica(Paciente paciente,Enfermedad enfermedad, Medico medico,String recomendaciones) {
 		this.paciente=paciente;
 		this.enfermedad = enfermedad;
 		this.medico = medico;
-		this.tratamientos = tratamientos;
+		//this.tratamientos = tratamientos;
 		this.recomendaciones = recomendaciones;
 	}
 	
+	
+	// Setters y getters
 	
 	public int getRegistro() {
 		return registro;
@@ -76,9 +75,5 @@ public class OrdenMedica {
 		this.recomendaciones = recomendaciones;
 		
 	}
-
-
-
-//Setters y getters
 
 }
