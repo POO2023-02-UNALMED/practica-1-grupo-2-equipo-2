@@ -25,13 +25,16 @@ public abstract class Tratamiento extends EvaluacionMedica{
         this.cita = cita;
     }
 
-	public abstract double calcularPrecio(Paciente paciente);
-	
-	public void marcarComoPagada() {
+	// Método abstracto para calcular el precio del tratamiento para un paciente.
+    public abstract double calcularPrecio(Paciente paciente);
+
+    // Método abstracto para representar el tratamiento como cadena de texto.
+    public abstract String toString();
+
+    // Marcar el tratamiento como pagado.
+    public void marcarComoPagada() {
         pagada = true;
     }
-	
-	public abstract String toString();
 	
 	//Getters y setters de pagada
 	public boolean isPagada() {
