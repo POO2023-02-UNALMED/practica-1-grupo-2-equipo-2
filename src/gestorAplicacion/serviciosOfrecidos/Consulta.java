@@ -33,7 +33,10 @@ public class Consulta extends Tratamiento{
     	this.ID = Consulta.contador; 
 	}
 	
-	
+    /*Calcula el precio de la consulta para un paciente dado.
+     * Este método es una implementación de un método abstracto heredado de la clase Tratamiento.
+     * @param paciente El paciente para el cual se calcula el precio.
+     * @return El costo total de la consulta.*/
 	@Override
     public double calcularPrecio(Paciente paciente) {
         // Obtén la categoría del paciente
@@ -47,6 +50,9 @@ public class Consulta extends Tratamiento{
         return costoTotal;
     }
 	
+    /*Convierte la información de la consulta en una cadena de texto.
+     * Este método es una implementación de un método abstracto heredado de la clase Tratamiento.
+     * @return Una cadena de texto que representa la información de la consulta.*/
 	@Override
 	public String toString() {
 	    return  "* Consulta con el médico: " + this.getCita().getMedico().getNombre() + "\n" +
