@@ -27,7 +27,7 @@ public class F1 {
         ListaProfesionales.agregarProfesional(nutricionista2);
         ListaProfesionales.agregarProfesional(optometrista2);
     }
-	
+	//*prueba
 	 public static void generarCita() {
 	        Scanner scanner = new Scanner(System.in);
 
