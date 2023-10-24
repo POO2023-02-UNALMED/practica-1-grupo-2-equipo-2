@@ -26,6 +26,10 @@ public class Cirugia extends Consulta{
         super(nombre, cantidad, especialidad, enfermedad, cita); 
     }
     
+    /*Calcula el precio de la cirugía para un paciente dado.
+     * Este método es una implementación de un método abstracto heredado de la clase Tratamiento.
+     * @param paciente El paciente para el cual se calcula el precio.
+     * @return El costo total de la cirugía.*/
     @Override
     public double calcularPrecio(Paciente paciente) {
         // Obtén la categoría del paciente
@@ -39,9 +43,13 @@ public class Cirugia extends Consulta{
         return costoTotal;
     }
     
+    /*Convierte la información de la cirugía en una cadena de texto.
+     * Este método es una implementación de un método abstracto heredado de la clase Tratamiento.
+     * @return Una cadena de texto que representa la información de la cirugía.*/
     @Override
     public String toString() {
         return  "* Cirugia con el médico: " + this.getCita().getMedico().getNombre() + "\n" +
+        		"* Nombre del tratamiento: " + this.getNombre() + "\n" +
                 "* Especialidad: " + this.getCita().getMedico().obtenerEspecialidad() + "\n" +
                 "* Enfermedad: " + this.getEnfermedad().getNombre() + "\n" +
                 "* Fecha: " + this.getCita().getFecha() + "\n" +
