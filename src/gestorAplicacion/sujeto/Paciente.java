@@ -47,6 +47,7 @@ public class Paciente extends Persona implements Pago{
     
 // ----------------------------------------------------------------------------- //
     
+    // Implementación del método obtenerServiciosSinPagar de la interfaz Pago
     @Override
     public String obtenerServiciosSinPagar() {
         StringBuilder infoServiciosSinPagar = new StringBuilder();
