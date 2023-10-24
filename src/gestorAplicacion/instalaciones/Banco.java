@@ -14,8 +14,8 @@ public class Banco {
         preciosOrganos = new HashMap<>();
         preciosOrganos.put("Ojo", 750000.0);
         preciosOrganos.put("Oreja", 950000.0);
-        preciosOrganos.put("Porción de hígado", 1235000.0);
-        preciosOrganos.put("Riñón", 1950000.0);
+        preciosOrganos.put("Porcion de higado", 1235000.0);
+        preciosOrganos.put("Riñon", 1950000.0);
         preciosOrganos.put("1 extremidad inferior", 2450000.0);
         preciosOrganos.put("1 extremidad superior", 3000000.0);
         this.cajaFuerte = Double.MAX_VALUE; // Establece la caja fuerte con el valor máximo de double
@@ -90,6 +90,7 @@ public class Banco {
             
             // Calcula el dinero restante
             double dineroRestante = diferencia;
+            
 
             // Agrega el dinero restante a la cuenta bancaria del paciente
             paciente.getCuentaBancaria().depositar(dineroRestante);
@@ -97,8 +98,10 @@ public class Banco {
             // Si el dinero de la donación no es suficiente, marca los servicios como pagados
             // Basicamente se le regala el dinero que le hace falta
             // Un regalo solidario como agradecimiento por su donacion
-            // Realiza la transferencia del dinero de la cuenta del paciente hacia la cuenta del hospital
-            this.transferencia(paciente, hospital ,costoTotalConIVA);
+        	double dineroRestante = -1* diferencia;
+        	cajaFuerte -= dineroRestante;
+        	double regaloSolidario = dineroRestante + dineroTotalDonacion;
+            this.transferencia(hospital , regaloSolidario);
             paciente.marcarServiciosComoPagados();
         }
     }
