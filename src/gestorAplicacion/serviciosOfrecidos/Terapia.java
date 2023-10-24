@@ -43,7 +43,8 @@ public class Terapia extends Consulta{
     @Override
     public String toString() {
         return  "* Terapia con el médico: " + this.getCita().getMedico().getNombre() + "\n" +
-                "* Especialidad: " + this.getCita().getMedico().obtenerEspecialidad() + "\n" +
+        		"* Nombre del tratamiento: " + this.getNombre() +  "\n" +
+        		"* Especialidad: " + this.getCita().getMedico().obtenerEspecialidad() + "\n" +
                 "* Enfermedad: " + this.getEnfermedad().getNombre() + "\n" +
                 "* Fecha: " + this.getCita().getFecha() + "\n" +
                 "* Precio: " + this.calcularPrecio(this.getCita().getPaciente()) + "\n";
