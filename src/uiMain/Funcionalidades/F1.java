@@ -103,5 +103,9 @@ public static Categoria obtenerCategoriaPorInput() {
 
     return categoria;
 }
+public static void main(String[] args) {
+    // Llama a la funcionalidad que deseas probar
+    generarCita();
+}
 
 }

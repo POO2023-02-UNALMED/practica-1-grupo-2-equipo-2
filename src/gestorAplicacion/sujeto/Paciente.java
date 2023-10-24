@@ -193,8 +193,10 @@ public class Paciente extends Persona implements Pago{
 		return null;
     }
     
-    public Cita agendarCita (Medico medico, String fecha) {
-    	return null;
+    public Cita agendarCita(Medico medico, String fecha) {
+        Cita nuevaCita = new Cita(medico, fecha, this); // Crea una nueva instancia de Cita
+        citas.add(nuevaCita); // Agrega la nueva cita a la lista de citas del paciente
+        return nuevaCita; // Retorna la nueva cita
     }
     
     public void actualizarHistorialEnfermedades(Enfermedad nuevaEnfermedad) {
