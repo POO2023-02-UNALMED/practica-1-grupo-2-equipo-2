@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import gestorAplicacion.adminHospitalaria.*;
 import gestorAplicacion.instalaciones.*;
 import gestorAplicacion.serviciosOfrecidos.*;
+import uiMain.ConsoleColors;
 
 public class Paciente extends Persona implements Pago{
 
@@ -44,7 +45,7 @@ public class Paciente extends Persona implements Pago{
         return "nombre : \u001B[34m"+this.nombre +"\u001B[0m id : \u001B[34m"+ this.numeroIdentificacion +"\u001B[0m categoria \u001B[34m" + this.categoria+"\u001B[0m peso : \u001B[34m"+ this.peso +"\u001B[0m sexo : \u001B[34m"+ this.sexo +"\u001B[0m talla : \u001B[34m"+ this.talla+"\u001B[0m";
     }
     
-    // ----------------------------------------------------------------------------- //
+// ----------------------------------------------------------------------------- //
     
     @Override
     public String obtenerServiciosSinPagar() {
@@ -74,12 +75,12 @@ public class Paciente extends Persona implements Pago{
 
         // Verifica si hay servicios sin pagar
         if (!serviciosSinPagar.isEmpty()) {
-            infoServiciosSinPagar.append("Total de servicios sin Pagar: ").append(serviciosSinPagar.size()).append("\n");
+            infoServiciosSinPagar.append(ConsoleColors.CYAN_BACKGROUND_BRIGHT + ConsoleColors.PURPLE_BOLD_BRIGHT +"Total de servicios sin Pagar: ").append(serviciosSinPagar.size()).append("\n").append(ConsoleColors.RESET + "\n");
 
             // Recorre la lista de servicios sin pagar y agrega la información al StringBuilder
             for (int i = 0; i < serviciosSinPagar.size(); i++) {
                 Tratamiento servicio = serviciosSinPagar.get(i);
-                infoServiciosSinPagar.append("Servicio N°").append(i).append("\n").append(servicio.toString());
+                infoServiciosSinPagar.append(ConsoleColors.RED_BACKGROUND_BRIGHT + ConsoleColors.WHITE_BOLD_BRIGHT + "Servicio N°").append(i).append("\n").append(ConsoleColors.YELLOW_BACKGROUND_BRIGHT + ConsoleColors.BLUE_BOLD_BRIGHT + "\n").append(servicio.toString()).append("\n").append(ConsoleColors.RESET + "\n");
             }
         } else {
             return "No hay servicios pendientes de pago";
