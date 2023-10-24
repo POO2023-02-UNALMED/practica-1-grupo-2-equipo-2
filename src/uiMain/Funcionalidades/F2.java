@@ -19,31 +19,35 @@ public class F2 {
 
 	//Metodo para asignar el médico
 	public static Medico asignarMedico() {
-    	System.out.println("Asigne el medico que atendera al paciente: ");
-    	  Medico ortopedista = new Medico(Categoria.ALTO_RENDIMIENTO, 78964, "Dr. Pérez", Especialidad.ORTOPEDISTA);
-          Medico fisioterapeuta = new Medico(Categoria.OLIMPICO, 789013, "Dr. Pepe", Especialidad.FISIOTERAPEUTA);
-          Medico nutricionista = new Medico(Categoria.AFICIONADOS, 789014, "Dra. Molly", Especialidad.NUTRICIONISTA);
-          Medico optometrista = new Medico(Categoria.OLIMPICO, 789015, "Dra. Margarita", Especialidad.OPTOMETRISTA);
-          Medico medico=null;
-    	if(F2.obtenerEspecialidad()==Especialidad.ORTOPEDISTA) {
-    		 medico= ortopedista;
-    		
-    	}
-    	else if(F2.obtenerEspecialidad()==Especialidad.NUTRICIONISTA) {
-    		 medico=nutricionista;
-    		
-    	}
-    	else if(F2.obtenerEspecialidad()==Especialidad.OPTOMETRISTA) {
-    		 medico=optometrista;
-    		
-    	}
-    	else if(F2.obtenerEspecialidad()==Especialidad.FISIOTERAPEUTA) {
-    		 medico=fisioterapeuta;
-    		
-    	}
-    	return medico;
+	    System.out.println("Asigne el medico que atendera al paciente: ");
+	    Medico ortopedista = new Medico(Categoria.ALTO_RENDIMIENTO, 78964, "Dr. Pérez", Especialidad.ORTOPEDISTA);
+	    Medico fisioterapeuta = new Medico(Categoria.OLIMPICO, 789013, "Dr. Pepe", Especialidad.FISIOTERAPEUTA);
+	    Medico nutricionista = new Medico(Categoria.AFICIONADOS, 789014, "Dra. Molly", Especialidad.NUTRICIONISTA);
+	    Medico optometrista = new Medico(Categoria.OLIMPICO, 789015, "Dra. Margarita", Especialidad.OPTOMETRISTA);
+	    Medico medico=null;
+
+	    Especialidad especialidadSeleccionada = F2.obtenerEspecialidad();  // Almacenar la especialidad seleccionada en una variable
+	    
+	    if(especialidadSeleccionada==Especialidad.ORTOPEDISTA) {
+	        medico= ortopedista;
+
+	    }
+	    else if(especialidadSeleccionada==Especialidad.NUTRICIONISTA) {
+	        medico=nutricionista;
+
+	    }
+	    else if(especialidadSeleccionada==Especialidad.OPTOMETRISTA) {
+	        medico=optometrista;
+
+	    }
+	    else if(especialidadSeleccionada==Especialidad.FISIOTERAPEUTA) {
+	        medico=fisioterapeuta;
+
+	    }
+	    return medico;
+	   
 	}
-	
+
 	
 	
 //Método que nos dará la especialidad del médico
