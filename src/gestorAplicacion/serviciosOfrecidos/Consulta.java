@@ -12,6 +12,7 @@ import gestorAplicacion.sujeto.*;
 public class Consulta extends Tratamiento{
 	
 	// Atributos
+	// Asigna un identificador único a cada objeto de la clase Consulta.
 	static private long contador = 0; 
 	private final long ID;
 	protected Rutina rutina;

@@ -170,6 +170,8 @@ public enum Ejercicio {
 		this.ID = ordinal(); //Ordinal: funcion de los Enum que devuelve la posicion de un objeto dentro del Enum
 	}
 	
+	//Getters 
+	
 	public CaracteristicasEjercicio getEjercicio() {
 		return ejercicio;
 	}
