@@ -196,7 +196,21 @@ public class Paciente extends Persona implements Pago{
     public Cita agendarCita(Medico medico, String fecha) {
         Cita nuevaCita = new Cita(medico, fecha, this); // Crea una nueva instancia de Cita
         citas.add(nuevaCita); // Agrega la nueva cita a la lista de citas del paciente
+        medico.agregarCita(nuevaCita); // Agregar la cita al médico
         return nuevaCita; // Retorna la nueva cita
+    }
+    
+  //lista para guardar las citas del paciente
+    public ArrayList<Cita> getCitas() {
+        return citas;
+    }
+    //lista con las citas del paciente
+    public void setCitas(ArrayList<Cita> citas) {
+        this.citas = citas;
+    }
+    //metodo para agregar las citas en la lista de citas del paciente.
+    public void agregarCita(Cita cita) {
+        citas.add(cita);
     }
     
     public void actualizarHistorialEnfermedades(Enfermedad nuevaEnfermedad) {
@@ -295,5 +309,8 @@ public class Paciente extends Persona implements Pago{
 
     public void setTalla(int talla) {
         this.talla = talla;
+    }
+    public int getNumeroIdentificacion() {
+    	return numeroIdentificacion;
     }
 }
