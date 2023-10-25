@@ -14,15 +14,15 @@ public class Cita{
 	private String fecha;
 	private Paciente paciente;
 
+	// Constructor
 	public Cita (Medico medico, String fecha, Paciente paciente){
 		this.medico = medico;
 		this.fecha = fecha;
 		this.paciente = paciente;
 	}
    
-	// -------------------------------------------------------------- // 
 
-	// Getter y Setter para el atributo 'medico'
+	// Getters y setters
 	public Medico getMedico() {
 	    return medico;
 	}
@@ -31,7 +31,6 @@ public class Cita{
 	    this.medico = medico;
 	}
 
-	// Getter y Setter para el atributo 'fecha'
 	public String getFecha() {
 	    return fecha;
 	}
@@ -40,7 +39,6 @@ public class Cita{
 	    this.fecha = fecha;
 	}
 
-	// Getter y Setter para el atributo 'paciente'
 	public Paciente getPaciente() {
 	    return paciente;
 	}

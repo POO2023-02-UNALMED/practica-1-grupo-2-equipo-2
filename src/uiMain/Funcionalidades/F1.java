@@ -42,9 +42,18 @@ public class F1 {
 	     // Solicitar la categoría del paciente
 	        Categoria categoriaPaciente = obtenerCategoriaPorInput();
 	        
+	        System.out.print("Ingrese su sexo (Masculino/Femenino): ");
+	        String sexo = scanner.next();
+
+	        System.out.print("Ingrese su peso (en kg): ");
+	        int peso = scanner.nextInt();
+
+	        System.out.print("Ingrese su talla (en cm): ");
+	        int talla = scanner.nextInt();
+	        
 	        // se crea un paciente con información proporcionada por el usuario- ¿como pedir la categoria?
 	       
-	        Paciente paciente = new Paciente(categoriaPaciente, idPaciente, nombrePaciente,"Masculino",0,0);
+	        Paciente paciente = new Paciente(categoriaPaciente, idPaciente, nombrePaciente, sexo, peso, talla);
 	        
 	        // Se solicita la información de la especialidad para la que se desea tener cita.
 	        System.out.print("Ingrese la especialidad (ORTOPEDISTA, FISIOTERAPEUTA, NUTRICIONISTA, OPTOMETRISTA): ");
@@ -65,74 +74,44 @@ public class F1 {
 	            // Se agenda la cita
 	            Cita nuevaCita = paciente.agendarCita(medicoDisponible, fecha);
 
-	            // Se informa al usuario sobre la cita agendada
-	            System.out.println("¡Cita agendada con éxito!");
-	            System.out.println("Médico: " + nuevaCita.getMedico().getNombre());
-	            System.out.println("Especialidad: " + nuevaCita.getMedico().obtenerEspecialidad());
-	            System.out.println("Fecha: " + nuevaCita.getFecha());
+	            // Imprimir hoja de cita
+	            System.out.println("--------------------------------------------------");
+	            System.out.println("|               Hoja de Cita Médica              |");
+	            System.out.println("--------------------------------------------------");
+	            System.out.println("| Paciente: " + paciente.getNombre());
+	            System.out.println("| ID: " + paciente.getId());
+	            System.out.println("| Categoría: " + paciente.getCategoria());
+	            System.out.println("| Especialidad: " + nuevaCita.getMedico().obtenerEspecialidad());
+	            System.out.println("| Médico: " + nuevaCita.getMedico().getNombre());
+	            System.out.println("| Fecha: " + nuevaCita.getFecha());
+	            System.out.println("--------------------------------------------------");
 	        } else {
 	            System.out.println("Lo sentimos, no hay médicos disponibles para la especialidad seleccionada.");
 	        }
-			scanner.close();
+	        scanner.close();
 	    }
 
+public static Categoria obtenerCategoriaPorInput() {
+    Scanner scanner = new Scanner(System.in);
+    Categoria categoria = null;
+    boolean entradaValida = false;
 
+    do {
+        try {
+            System.out.print("Ingrese su categoría (ALTO_RENDIMIENTO, OLIMPICO, AFICIONADOS): ");
+            String categoriaString = scanner.next();
+            categoria = Categoria.valueOf(categoriaString);
+            entradaValida = true;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Categoría no válida. Por favor, ingrese una categoría válida.");
+        }
+    } while (!entradaValida);
 
-public static void generarCita(Paciente paciente) {
-	         Scanner scanner = new Scanner(System.in);
-
-	    //     // se solicita el nombre del paciente primero.
-	    //     System.out.print("Ingrese su nombre: ");
-	    //     String nombrePaciente = scanner.nextLine();
-	        
-	    //     // se solicita el numero de identificación al paciente.
-	    //     System.out.print("Ingrese su número de identificación: ");
-	    //     int idPaciente = scanner.nextInt();
-	        
-	    //  // Solicitar la categoría del paciente
-	    //     Categoria categoriaPaciente = obtenerCategoriaPorInput();
-	        
-	    //     // se crea un paciente con información proporcionada por el usuario- ¿como pedir la categoria?
-	       
-	    //     Paciente paciente = new Paciente(categoriaPaciente, idPaciente, nombrePaciente);
-	        
-	        // Se solicita la información de la especialidad para la que se desea tener cita.
-	        System.out.print("Ingrese la especialidad (ORTOPEDISTA, FISIOTERAPEUTA, NUTRICIONISTA, OPTOMETRISTA): ");
-	        String especialidadString = scanner.next();
-	        Especialidad especialidad = Especialidad.valueOf(especialidadString);
-
-	        
-	       //Se pide la fecha para la cita.
-	        System.out.print("Ingrese la fecha (dd/mm/yyyy): ");
-	        String fecha = scanner.next();
-	        
-	     // Se encuentra un médico disponible con la especialidad seleccionada
-	        Medico medicoDisponible = ListaProfesionales.buscarMedicoPorEspecialidad(especialidad);
-	        
-	        
-	        //logica para terminar la creacion de la cita, se verifica que hay medicos disponibles para asignar al paciente.
-	        if (medicoDisponible != null) {
-	            // Se agenda la cita
-	            Cita nuevaCita = paciente.agendarCita(medicoDisponible, fecha);
-
-	            // Se informa al usuario sobre la cita agendada
-	            System.out.println("¡Cita agendada con éxito!");
-	            System.out.println("Médico: " + nuevaCita.getMedico().getNombre());
-	            System.out.println("Especialidad: " + nuevaCita.getMedico().obtenerEspecialidad());
-	            System.out.println("Fecha: " + nuevaCita.getFecha());
-	        } else {
-	            System.out.println("Lo sentimos, no hay médicos disponibles para la especialidad seleccionada.");
-	        }
-			scanner.close();
-	    }
-
-
-	 public static Categoria obtenerCategoriaPorInput() {
-	        Scanner scanner = new Scanner(System.in);
-
-	        System.out.print("Ingrese su categoría (ALTO_RENDIMIENTO, OLIMPICO, AFICIONADOS): ");
-	        String categoriaString = scanner.next();
-	        return Categoria.valueOf(categoriaString);
-	    }
+    return categoria;
+}
+public static void main(String[] args) {
+    // Llama a la funcionalidad que deseas probar
+    generarCita();
+}
 
 }

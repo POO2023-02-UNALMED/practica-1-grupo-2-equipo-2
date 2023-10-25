@@ -33,7 +33,7 @@ public abstract class Tratamiento extends EvaluacionMedica{
 
     // Marcar el tratamiento como pagado.
     public void marcarComoPagada() {
-        pagada = true;
+        this.setPagada(true);
     }
 	
 	//Getters y setters

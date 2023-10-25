@@ -21,20 +21,24 @@ public class Banco {
         this.cajaFuerte = Double.MAX_VALUE; // Establece la caja fuerte con el valor máximo de double
     }
 
+    // Transfiere un monto desde la cuenta del paciente a la cuenta del hospital.
     public void transferencia(Paciente paciente, Hospital hospital, double monto) {
+        // Verifica que el monto sea positivo y que el paciente tenga suficientes fondos en su cuenta.
         if (monto > 0 && paciente.getCuentaBancaria().getSaldo() >= monto) {
-            // Realiza el débito en la cuenta del paciente
+            // Realiza el débito en la cuenta del paciente.
             paciente.getCuentaBancaria().debitar(monto);
     
-            // Realiza el depósito en la cuenta del hospital
+            // Realiza el depósito en la cuenta del hospital.
             hospital.getCuentaBancaria().depositar(monto);
         }
     }
 
-    public void transferencia (Hospital hospital, double monto){
+    // Realiza un depósito en la cuenta del hospital.
+    public void transferencia(Hospital hospital, double monto){
+        // Realiza un depósito en la cuenta del hospital con el monto especificado.
         hospital.getCuentaBancaria().depositar(monto);
     }
-    
+
 
     public void pedirCredito(Paciente paciente, Hospital hospital, double dineroNecesario, double costoTotalConIVA) {
         // Resta el dinero necesario de la caja fuerte del banco

@@ -11,8 +11,7 @@ import gestorAplicacion.serviciosOfrecidos.*;
 //Descripción: Esta clase se encarga 
 public class HistoriaClinica {
 
-//Atributos
-	
+	//Atributos
 	private final Paciente PACIENTE;
 	private ArrayList <Enfermedad> historialEnfermedades;
 	private ArrayList <OrdenMedica> historialOrdenes;
@@ -21,7 +20,7 @@ public class HistoriaClinica {
 	private ArrayList <Consulta> historialConsultas;
 	private ArrayList <Rutina> historialRutinas;
 	
-//Constructor
+	//Constructor
 	public HistoriaClinica(Paciente paciente) {
 		this.PACIENTE = paciente;
 		this.historialEnfermedades = new ArrayList<>();
@@ -31,13 +30,13 @@ public class HistoriaClinica {
         this.historialConsultas = new ArrayList<>();
         this.setHistorialRutinas(new ArrayList<>());
     }
+	
+	// Getters y setters
 
-	// Getter para PACIENTE
-    public Paciente getPACIENTE() {
+	public Paciente getPACIENTE() {
         return PACIENTE;
     }
 
-    // Getters y setters para historialEnfermedades
     public ArrayList<Enfermedad> getHistorialEnfermedades() {
         return historialEnfermedades;
     }
@@ -46,7 +45,6 @@ public class HistoriaClinica {
         this.historialEnfermedades = historialEnfermedades;
     }
 
-    // Getters y setters para historialOrdenes
     public ArrayList<OrdenMedica> getHistorialOrdenes() {
         return historialOrdenes;
     }
@@ -55,7 +53,6 @@ public class HistoriaClinica {
         this.historialOrdenes = historialOrdenes;
     }
 
-    // Getters y setters para historialTerapias
     public ArrayList<Terapia> getHistorialTerapias() {
         return historialTerapias;
     }
@@ -64,7 +61,6 @@ public class HistoriaClinica {
         this.historialTerapias = historialTerapias;
     }
 
-    // Getters y setters para historialCirugias
     public ArrayList<Cirugia> getHistorialCirugias() {
         return historialCirugias;
     }
@@ -73,7 +69,6 @@ public class HistoriaClinica {
         this.historialCirugias = historialCirugias;
     }
 
-    // Getters y setters para historialConsultas
     public ArrayList<Consulta> getHistorialConsultas() {
         return historialConsultas;
     }
