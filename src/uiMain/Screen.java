@@ -136,6 +136,7 @@ public class Screen {
         String direcion = myObj.nextLine();
         Hospital h = new Hospital(nombre,direcion);
         Banco banco = new Banco();
+        
 
         // algunos Medicos- caso de prueba.
         Medico ortopedista = new Medico(Categoria.ALTO_RENDIMIENTO, 78964, "Dr. Pérez", Especialidad.ORTOPEDISTA);
@@ -152,14 +153,14 @@ public class Screen {
         for (int i = 1;i<maxHabitacion;i++){
             h.habitaciones.add(new Habitacion(i));
         }
-
+        //cambio de Ronal
+        Paciente p=null;
 
         do {
             Screen.eraseScreen();
             Screen.imprimirMenu(h);
             choice = myObj.nextLine();
             Screen.eraseScreen();
-
 
             switch (choice) {
                 case "0":
@@ -183,9 +184,10 @@ public class Screen {
                     peso = myObj.nextInt();
                     System.out.println("Entrar la talla del paciente");
                     talla = myObj.nextInt();
-
-                    Paciente p = new Paciente(F1.obtenerCategoriaPorInput(),id,nombre,sexo,peso,talla);
+                    //Aquí ronal hizo el cambio
+                    p = new Paciente(F1.obtenerCategoriaPorInput(),id,nombre,sexo,peso,talla);
                     h.anadirPaciente(p);
+                    
                     choice = myObj.nextLine();
                     break;
 
@@ -196,7 +198,7 @@ public class Screen {
                     Screen.imprimirPacientes(h);
                     System.out.println("Entrar el id del paciente que desea una cita");
                     id = myObj.nextInt();
-                    F1.generarCita(h.buscarPaciente(id));
+                    //F1.generarCita(h.buscarPaciente(id));
 
                     choice = myObj.nextLine();
 
@@ -221,24 +223,24 @@ public class Screen {
                 	System.out.println("================================================");
                 	
                 	System.out.println(F2.azul + "Generando la orden medica en el sistema...... se tardara unos minutos" + F2.reiniciar);
-                    System.out.println("Entrar nombre del paciente");
-                    nombre = myObj.nextLine();
-                    System.out.println("Entrar el id del paciente");
-                    id = myObj.nextInt();
-                    System.out.println("Entrar el sexo del paciente");
-                    sexo = myObj.next();
-                    System.out.println("Entrar el peso del paciente");
-                    peso = myObj.nextInt();
-                    System.out.println("Entrar la talla del paciente");
-                    talla =myObj.nextInt();
+                    //System.out.println("Entrar nombre del paciente");
+                    //nombre = myObj.nextLine();
+                    //System.out.println("Entrar el id del paciente");
+                    //id = myObj.nextInt();
+                    //System.out.println("Entrar el sexo del paciente");
+                   // sexo = myObj.next();
+                    //System.out.println("Entrar el peso del paciente");
+                    //peso = myObj.nextInt();
+                    //System.out.println("Entrar la talla del paciente");
+                   // talla =myObj.nextInt();
                     
                     
-                    Paciente paciente=new Paciente(F1.obtenerCategoriaPorInput(),id,nombre,sexo,peso,talla);
+                    //Paciente paciente=new Paciente(F1.obtenerCategoriaPorInput(),id,nombre,sexo,peso,talla);
                 	System.out.println("Nombre de la enfermedad");
                 	nombreEnfermedad= myObj.next();
-                	System.out.println("Ingrese la cantidad del paciente");
+                	System.out.println("Ingrese del 1-100 la gravedad del paciente");
                 	cantidad=myObj.nextInt();
-                	System.out.println("Ingresar la especialidad del paciente");
+                	System.out.println("Ingresar la especialidad del medico que tratara al paciente");
                 	Especialidad especialidad=F2.obtenerEspecialidad();
                 	System.out.print("Ingrese la tipologia del paciente: ");
                 	tipologia=myObj.next();
@@ -263,9 +265,11 @@ public class Screen {
                 		 enfermedad=new Enfermedad(nombreEnfermedad,cantidad,especialidad,tipologia,sintomas,restriccion);
                 	}	
                 	System.out.println("Escribir las recomendaciones que se le daran al paciente");
-                	recomendaciones=myObj.next();
+                	myObj.nextLine();
+                	recomendaciones=myObj.nextLine();
                 	System.out.println("Generando orden medica......");
-                	OrdenMedica ordenMedica= new OrdenMedica(paciente,enfermedad,medico,recomendaciones);
+                	OrdenMedica ordenMedica= new OrdenMedica(p,enfermedad,medico,recomendaciones);
+                	
                 	OrdenMedica crearOrden= F2.generarOrdenMedica(ordenMedica);
                 	break;
 
