@@ -15,12 +15,14 @@ public class Rutina{
 	private ArrayList<Ejercicio>ejerciciosOrdenados = new ArrayList<>();
 	private TipoTerapia tipoTerapia;
 	private TipoObjetivo tipoObjetivo;
-	
+    private static int cantidadRutinasCreadas = 0;
+
 	public Rutina(Paciente paciente, TipoTerapia tipoTerapia, TipoObjetivo tipoObjetivo) {
 		this.paciente = paciente;
 		this.tipoTerapia = tipoTerapia;
 		this.tipoObjetivo = tipoObjetivo;
-		
+	    cantidadRutinasCreadas++;
+
 		/*Al crear un objeto de esta instancia, se toman las enfermedades del paciente 
 		 * que se encuentran dentro de una lista, obtiene su restriccion, esta es almacenada
 		 * en la variable restriccionEnfermedad y se agrega en el Array restricciones */
@@ -126,4 +128,9 @@ public class Rutina{
 			}
 		}
 	}
+	
+	 // Método de clase para obtener la cantidad de rutinas creadas
+    public static int getCantidadRutinasCreadas() {
+        return cantidadRutinasCreadas;
+    }
 }
