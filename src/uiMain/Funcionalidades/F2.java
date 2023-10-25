@@ -20,7 +20,7 @@ public class F2 {
 	//Metodo para asignar el médico
 	public static Medico asignarMedico() {
 	    System.out.println("Asigne el medico que atendera al paciente: ");
-	    Medico ortopedista = new Medico(Categoria.ALTO_RENDIMIENTO, 78964, "Dr. Pérez", Especialidad.ORTOPEDISTA);
+	    Medico ortopedista = new Medico(Categoria.ALTO_RENDIMIENTO, 78964, "Dr. Perez", Especialidad.ORTOPEDISTA);
 	    Medico fisioterapeuta = new Medico(Categoria.OLIMPICO, 789013, "Dr. Pepe", Especialidad.FISIOTERAPEUTA);
 	    Medico nutricionista = new Medico(Categoria.AFICIONADOS, 789014, "Dra. Molly", Especialidad.NUTRICIONISTA);
 	    Medico optometrista = new Medico(Categoria.OLIMPICO, 789015, "Dra. Margarita", Especialidad.OPTOMETRISTA);
@@ -71,10 +71,10 @@ public class F2 {
     public static Restriccion restriccionPaciente() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("¿El paciente tiene alguna restricción médica? (Sí/No)");
-        String respuesta = scanner.nextLine();
+        System.out.println("¿El paciente tiene alguna restricción médica? (Si/No)");
+        String respuesta = scanner.nextLine().toUpperCase();
 
-        if (respuesta.equalsIgnoreCase("Sí")) {
+        if (respuesta.equalsIgnoreCase("SI")) {
             System.out.println("Ingrese la restricción -CARDIOVASCULAR, RESPIRATORIA, EQUILIBRIO, FUERZA, FLEXIBILIDAD-");
             String restriccion = scanner.nextLine();
 
@@ -144,39 +144,35 @@ public class F2 {
 	
 //Crearemos la orden médica 	
 	public static OrdenMedica generarOrdenMedica(OrdenMedica ordenMedica) {
-	    String linea = "==============================================================================================================";
-	    String espacio = "||                                                                                                          ||";
-
-	    System.out.println(linea);
-	    System.out.println(espacio);
-	    System.out.println(espacio);
+	    System.out.println("==============================================================================================================");
+	    System.out.println("||                                                                                                          ||");
+	    System.out.println("||                                                                                                          ||");
 	    System.out.println("||                                             ORDEN MEDICA                                                 ||");
-	    System.out.println(espacio);
-	    System.out.println(espacio);
-	    System.out.println(linea);
-
-	    System.out.println("||" + "Nombre del paciente: " + ordenMedica.getPaciente().getNombre() + "______________________________");
-	    System.out.println("||╬╬" + "Numero de identificacion: " + ordenMedica.getPaciente().getNumeroIdentificacion() + "╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬||");
-	    System.out.println("||╬╬" + "Sexo del paciente: " + ordenMedica.getPaciente().getSexo() + "╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬||");
-	    System.out.println("||╬╬" + "Peso del paciente: " + ordenMedica.getPaciente().getPeso() + "╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬||");
-	    System.out.println("||╬╬" + "Talla del paciente: " + ordenMedica.getPaciente().getTalla() + "╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬||");
-	    System.out.println(linea);
-
+	    System.out.println("||                                                                                                          ||");
+	    System.out.println("||                                                                                                          ||");
+	    System.out.println("==============================================================================================================");
+	    
+	    System.out.println("Nombre del paciente: " + ordenMedica.getPaciente().getNombre() );
+	    System.out.println("Numero de identificacion: " + ordenMedica.getPaciente().getNumeroIdentificacion());
+	    System.out.println("Sexo del paciente: " + ordenMedica.getPaciente().getSexo() );
+	    System.out.println("Peso del paciente: " + ordenMedica.getPaciente().getPeso() );
+	    System.out.println("Talla del paciente: " + ordenMedica.getPaciente().getTalla());
+	    System.out.println("==============================================================================================================");
+	    
 	    System.out.println("Nombre del Medico: " + ordenMedica.getMedico().getNombre() + "\n" 
 	                    + "Especialidad: " + ordenMedica.getMedico().obtenerEspecialidad() + "\n"
 	                    + "Numero de identificacion: " + ordenMedica.getMedico().getNumeroIdentificacion());
-	    System.out.println(linea);
-
+	    System.out.println("==============================================================================================================");
+	    
 	    System.out.println("Enfermedad del paciente: " + ordenMedica.getEnfermedad().getNombre());
 	    System.out.println("Sintomas de la enfermedad: " + ordenMedica.getEnfermedad().getSintomas());
-	    System.out.println(linea);
-
+	    System.out.println("==============================================================================================================");
+	    
 	    System.out.println("Recomendaciones : " + ordenMedica.getRecomendaciones());
-	    System.out.println(linea);
-
+	    System.out.println("==============================================================================================================");
+	    
 	    return null;
 	}
-
 
 	
 
