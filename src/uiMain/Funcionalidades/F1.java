@@ -4,6 +4,7 @@ package uiMain.Funcionalidades;
 import gestorAplicacion.sujeto.*;
 import gestorAplicacion.adminHospitalaria.*;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class F1 {
 	static {
@@ -28,33 +29,87 @@ public class F1 {
         ListaProfesionales.agregarProfesional(optometrista2);
     }
 	//*prueba
-	 public static void generarCita() {
-	        Scanner scanner = new Scanner(System.in);
+	public static void generarCita() {
+	    Scanner scanner = new Scanner(System.in);
 
-	        // se solicita el nombre del paciente primero.
-	        System.out.print("Ingrese su nombre: ");
-	        String nombrePaciente = scanner.nextLine();
-	        
-	        // se solicita el numero de identificación al paciente.
-	        System.out.print("Ingrese su número de identificación: ");
-	        int idPaciente = scanner.nextInt();
-	        
-	        // Solicitar la categoría del paciente
-	        Categoria categoriaPaciente = obtenerCategoriaPorInput();
-	        //Solicita el sexo del paciente.
-	        System.out.print("Ingrese su sexo (Masculino/Femenino): ");
-	        String sexo = scanner.next();
-	        //Solicita el peso del paciente.
-	        System.out.print("Ingrese su peso (en kg): ");
-	        int peso = scanner.nextInt();
-	        //Solicita la talla del paciente.
-	        System.out.print("Ingrese su talla (en cm): ");
-	        int talla = scanner.nextInt();
-	        
-	        // se crea un paciente con información proporcionada por el usuario- ¿como pedir la categoria?
-	       
-	        Paciente paciente = new Paciente(categoriaPaciente, idPaciente, nombrePaciente, sexo, peso, talla);
-	        
+	    String nombrePaciente;
+	    int idPaciente;
+	    Categoria categoriaPaciente;
+	    String sexo;
+	    int peso;
+	    int talla;
+	    Paciente paciente = null;
+
+	    // Solicitar el nombre del paciente
+	    while (true) {
+	        try {
+	            System.out.print("Ingrese su nombre: ");
+	            nombrePaciente = scanner.nextLine();
+	            break; // Si no se lanza ninguna excepción, el nombre es válido
+	        } catch (InputMismatchException e) {
+	            System.out.println("Nombre inválido. Intente nuevamente.");
+	            scanner.nextLine(); // se limpia la entrada se pide la info nuevamente
+	        }
+	    }
+
+	    // Solicitar el número de identificación del paciente
+	    while (true) {
+	        try {
+	            System.out.print("Ingrese su número de identificación: ");
+	            idPaciente = scanner.nextInt();
+	            break; // Si no se lanza ninguna excepción, el ID es válido
+	        } catch (InputMismatchException e) {
+	            System.out.println("ID inválido. Intente nuevamente.");
+	            scanner.nextLine(); // se limpia la entrada se pide la info nuevamente
+	        }
+	    }
+
+	    // Solicitar la categoría del paciente
+	    categoriaPaciente = obtenerCategoriaPorInput();
+
+	    // Solicitar el sexo del paciente
+	    while (true) {
+	        try {
+	            System.out.print("Ingrese su sexo (Masculino/Femenino): ");
+	            sexo = scanner.next();
+	            if (!sexo.equalsIgnoreCase("Masculino") && !sexo.equalsIgnoreCase("Femenino")) {
+	                throw new InputMismatchException(); // Lanzar una excepción si el sexo es inválido
+	            }
+	            break; // Si no se lanza ninguna excepción, el sexo es válido
+	        } catch (InputMismatchException e) {
+	            System.out.println("Sexo inválido. Intente nuevamente.");
+	            scanner.nextLine(); // se limpia la entrada se pide la info nuevamente
+	        }
+	    }
+
+	    // Solicitar el peso del paciente
+	    while (true) {
+	        try {
+	            System.out.print("Ingrese su peso (en kg): ");
+	            peso = scanner.nextInt();
+	            break; // Si no se lanza ninguna excepción, el peso es válido
+	        } catch (InputMismatchException e) {
+	            System.out.println("Peso inválido. Intente nuevamente.");
+	            scanner.nextLine(); // se limpia la entrada se pide la info nuevamente
+	        }
+	    }
+
+	    // Solicitar la talla del paciente
+	    while (true) {
+	        try {
+	            System.out.print("Ingrese su talla (en cm): ");
+	            talla = scanner.nextInt();
+	            break; // Si no se lanza ninguna excepción, la talla es válida
+	        } catch (InputMismatchException e) {
+	            System.out.println("Talla inválida. Intente nuevamente.");
+	            scanner.nextLine(); // se limpia la entrada se pide la info nuevamente
+	        }
+	    }
+
+	    // Se crea un paciente con la información proporcionada por el usuario
+	    paciente = new Paciente(categoriaPaciente, idPaciente, nombrePaciente, sexo, peso, talla);
+
+	   
 	        // Se solicita la información de la especialidad para la que se desea tener cita.
 	        System.out.print("Ingrese la especialidad (ORTOPEDISTA, FISIOTERAPEUTA, NUTRICIONISTA, OPTOMETRISTA): ");
 	        String especialidadString = scanner.next();
