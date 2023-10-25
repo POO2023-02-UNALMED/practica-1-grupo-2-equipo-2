@@ -33,7 +33,7 @@ public class Medico extends Persona{
     public ArrayList<Cita> getAgenda() {
         return agenda;
     }
-    
+    //lista con las citas del medico
     public void setAgenda(ArrayList<Cita> agenda) {
         this.agenda = agenda;
     }
