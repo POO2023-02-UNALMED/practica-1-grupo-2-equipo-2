@@ -79,7 +79,7 @@ public class F1 {
 	            System.out.println("|               Hoja de Cita Médica              |");
 	            System.out.println("--------------------------------------------------");
 	            System.out.println("| Paciente: " + paciente.getNombre());
-	            System.out.println("| ID: " + paciente.getId());
+	            System.out.println("| ID: " + paciente.getNumeroIdentificacion());
 	            System.out.println("| Categoría: " + paciente.getCategoria());
 	            System.out.println("| Especialidad: " + nuevaCita.getMedico().obtenerEspecialidad());
 	            System.out.println("| Médico: " + nuevaCita.getMedico().getNombre());

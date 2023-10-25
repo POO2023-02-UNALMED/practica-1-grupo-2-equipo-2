@@ -296,4 +296,7 @@ public class Paciente extends Persona implements Pago{
     public void setTalla(int talla) {
         this.talla = talla;
     }
+    public int getNumeroIdentificacion() {
+    	return numeroIdentificacion;
+    }
 }
