@@ -33,6 +33,8 @@ public class Rutina{
 		
 		this.cantidadEjercicios = ejerciciosOrdenados.size();
 	}
+	
+	
 	//Getter cantidadEjercicio
 	
 	public int getCantidadEjercicios() {

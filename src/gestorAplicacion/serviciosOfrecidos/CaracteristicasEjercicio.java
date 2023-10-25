@@ -9,7 +9,7 @@ import gestorAplicacion.sujeto.*;
 public class CaracteristicasEjercicio {
 	private TipoTerapia tipoTerapia;
 	private TipoObjetivo objetivo;
-	private Restriccion restriccion; //Crear las restricciones en enfermedad
+	private Restriccion restriccion; 
 	
 	
 	//Constructor
