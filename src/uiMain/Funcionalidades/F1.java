@@ -39,15 +39,15 @@ public class F1 {
 	        System.out.print("Ingrese su número de identificación: ");
 	        int idPaciente = scanner.nextInt();
 	        
-	     // Solicitar la categoría del paciente
+	        // Solicitar la categoría del paciente
 	        Categoria categoriaPaciente = obtenerCategoriaPorInput();
-	        
+	        //Solicita el sexo del paciente.
 	        System.out.print("Ingrese su sexo (Masculino/Femenino): ");
 	        String sexo = scanner.next();
-
+	        //Solicita el peso del paciente.
 	        System.out.print("Ingrese su peso (en kg): ");
 	        int peso = scanner.nextInt();
-
+	        //Solicita la talla del paciente.
 	        System.out.print("Ingrese su talla (en cm): ");
 	        int talla = scanner.nextInt();
 	        
@@ -74,7 +74,7 @@ public class F1 {
 	            // Se agenda la cita
 	            Cita nuevaCita = paciente.agendarCita(medicoDisponible, fecha);
 
-	            // Imprimir hoja de cita
+	            // Se imprime la hoja con la cita medico para el paciente.
 	            System.out.println("--------------------------------------------------");
 	            System.out.println("|               Hoja de Cita Médica              |");
 	            System.out.println("--------------------------------------------------");
@@ -90,7 +90,7 @@ public class F1 {
 	        }
 	        scanner.close();
 	    }
-
+//Metodo para pedir la categorí deportiva del paciente, con especificación en caso de introducir una categoría no valida.
 public static Categoria obtenerCategoriaPorInput() {
     Scanner scanner = new Scanner(System.in);
     Categoria categoria = null;
@@ -110,7 +110,7 @@ public static Categoria obtenerCategoriaPorInput() {
     return categoria;
 }
 public static void main(String[] args) {
-    // Llama a la funcionalidad que deseas probar
+    // Main de prueba
     generarCita();
 }
 
