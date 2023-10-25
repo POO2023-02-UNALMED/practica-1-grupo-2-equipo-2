@@ -50,8 +50,8 @@ public class Screen {
         //System.out.println("Entrar 3 para imprimir la lista de pacientes        , Funcionalidad 3");
         System.out.println("Entrar 4 para generar cita por un paciente          , Funcionalidad 1");
         System.out.println("Entrar 5 para generar una rutina y ejercicios       , Funcionalidad 4"); 
-        System.out.println("Entrar 7 para generar la orden medica                , Funcionalidad 2");
         System.out.println("Entrar 6 para la facturacion                        , Funcionalidad 5");
+        System.out.println("Entrar 7 para generar la orden medica                , Funcionalidad 2");
 
     }
 
@@ -179,7 +179,7 @@ public class Screen {
                     System.out.println("Entrar el id del paciente");
                     id = myObj.nextInt();
                     System.out.println("Entrar el sexo del paciente");
-                    sexo = myObj.next();
+                    sexo = myObj.next();                                    //hacer una correction 
                     System.out.println("Entrar el peso del paciente");
                     peso = myObj.nextInt();
                     System.out.println("Entrar la talla del paciente");

@@ -50,6 +50,11 @@ public class Hospital {
 
     }
 
+    public void borrarPaciente(Paciente p){
+        this.pacientes.remove(p);
+        p.getHabitacionAsignada().dejarHabitacion();
+    }
+
     // fonction que returna el paciente segun su numero de Identificacion, returna null si no esta en el hospital
     public Paciente buscarPaciente(int numeroIdentificacion) {
         for (Paciente paciente : pacientes) {

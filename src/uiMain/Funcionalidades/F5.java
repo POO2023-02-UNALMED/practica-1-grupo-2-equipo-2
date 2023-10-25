@@ -41,6 +41,9 @@ public class F5 {
         /* -------------- Primera interacción: obtenerServiciosSinPagar (ubicación: Clase Paciente) --------------
         * Obtener los servicios pendientes de pago del paciente seleccionado */
 
+        //borrar el paciente del hospital 
+        hospital.borrarPaciente(pacienteSeleccionado);
+
         // Mostrar lista de servicios pendientes de pago
         System.out.println("\n");
         System.out.println(ConsoleColors.WHITE_BACKGROUND_BRIGHT + ConsoleColors.CYAN_BOLD_BRIGHT + "⚕️ El Paciente: " + pacienteSeleccionado.getNombre());
