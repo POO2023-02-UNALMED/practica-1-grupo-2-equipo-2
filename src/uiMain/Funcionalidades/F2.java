@@ -67,6 +67,7 @@ public class F2 {
 	        System.out.println("Especialidad inválida. Por favor, ingrese una especialidad válida.");
 	    }
 	}
+	//Metodo que comprobará si el paciente tiene alguna restricción que pueda poner el peligro su salud
     public static Restriccion restriccionPaciente() {
         Scanner scanner = new Scanner(System.in);
 
@@ -163,7 +164,7 @@ public class F2 {
 		System.out.println("Enfermedad del paciente: " + ordenMedica.getEnfermedad().getNombre());
 		System.out.println("Sintomas de la enfermedad: " + ordenMedica.getEnfermedad().getSintomas());
 		System.out.println("==============================================================================================================");
-		System.out.println("Recomendaciones: " + ordenMedica.getRecomendaciones());
+		System.out.println("Recomendaciones : " + ordenMedica.getRecomendaciones());
 		System.out.println("==============================================================================================================");
 		return null;
 	
