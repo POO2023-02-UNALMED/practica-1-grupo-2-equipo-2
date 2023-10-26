@@ -8,10 +8,11 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import gestorAplicacion.sujeto.*;
 import gestorAplicacion.serviciosOfrecidos.*;
-import gestorAplicacion.adminHospitalaria.OrdenMedica;
+import gestorAplicacion.adminHospitalaria.*;
 import gestorAplicacion.instalaciones.Banco;
 import gestorAplicacion.instalaciones.Habitacion;
 import gestorAplicacion.instalaciones.Hospital;
+import uiMain.Funcionalidades.F0;
 import uiMain.Funcionalidades.F1;
 import uiMain.Funcionalidades.F2;
 import uiMain.Funcionalidades.F4;
@@ -19,6 +20,13 @@ import uiMain.Funcionalidades.F5;
 
 public class Screen {
     
+	private static String TESTNOMBRE = "Athenea OlympiCare";
+	private static String TESTDIRECCION = "Cra. 65 #59a-110";
+	private static Banco BANCO = new Banco();
+	public static Hospital HOSPITAL = new Hospital(TESTNOMBRE, TESTDIRECCION);
+	public static Scanner SCANNER = new Scanner(System.in);
+	
+	
     //funcion para borrar la consola de control
     public static void eraseScreen(){
  
@@ -43,17 +51,16 @@ public class Screen {
     public static void imprimirMenu(Hospital h){
         System.out.println("Bienvenido en el Hospital \u001B[34m" + h.getNombre() +"\u001B[0m");
         System.out.println("---- MENU ----");
-        System.out.println("Entrar \"quit\" para imprimir el Hospital");
-        System.out.println("Entrar 0 para imprimir el Hospital                  , Funcionalidad 3");
-        System.out.println("Entrar 1 para imprimir la lista de los Medicos      , Funcionalidad 3");
-        System.out.println("Entrar 2 para anadir paciente                       , Funcionalidad 3");
-        //System.out.println("Entrar 3 para imprimir la lista de pacientes        , Funcionalidad 3");
-        System.out.println("Entrar 4 para generar cita por un paciente          , Funcionalidad 1");
-        System.out.println("Entrar 5 para generar una rutina y ejercicios       , Funcionalidad 4"); 
-        System.out.println("Entrar 7 para generar la orden medica                , Funcionalidad 2");
-        System.out.println("Entrar 6 para la facturacion                        , Funcionalidad 5");
-
+        
+        System.out.println("Entrar 1 para agendar cita             || Funcionalidad 1");
+        System.out.println("Entrar 2 para generar orden medica     || Funcionalidad 2");
+        System.out.println("Entrar 3 para asignar habitación       || Funcionalidad 3");
+        System.out.println("Entrar 4 para generar rutina/terapia   || Funcionalidad 4");
+        System.out.println("Entrar 5 para acceder a facturación    || Funcionalidad 5"); 
+        System.out.println("Entrar 0 para administrar el Hospital  || No funcionalidad");
+        System.out.println("Entrar \"quit\" para salir             || No funcionalidad");
     }
+    
 
     //funcion grafica que imprime las habitaciones y sus habitantes en un plan y la lista de los pacientes
     public static void imprimirHospital(Hospital h){
@@ -111,15 +118,32 @@ public class Screen {
             System.out.println("\n");
         }
     }
+    
+    // funcion para pedir genero
+    public static String pedirSexo() {
+    	String sexo;
+        Scanner SCANNER = new Scanner(System.in);
+
+    	do {
+    		System.out.println("Entra el sexo del paciente, elige entre M para masculino o F para femenino:");
+    		sexo = SCANNER.nextLine().toUpperCase();
+    		
+    		if (!sexo.equals("F") && !sexo.equals("M")) {
+        		System.out.println("Entrada inválida, por favor intente de nuevo.");
+    		}
+
+    	} while(!sexo.equals("F") && !sexo.equals("M"));
+    	
+    	return sexo;
+    }
 
     public static void main(String[] args ){
 
         Screen.eraseScreen();
         final int maxHabitacion = 17;
 
-        Scanner myObj = new Scanner(System.in);
-        String choice = "";
-        int loop = 1;
+        Scanner SCANNER = new Scanner(System.in);
+        
         int id;
         String sexo;
         int peso;
@@ -130,13 +154,9 @@ public class Screen {
         String sintomas;
         String recomendaciones;
         
-        System.out.println("Entra el nombre del hospital");
-        String nombre = myObj.nextLine();
-        System.out.println("Entrar la direcion del hospital");
-        String direcion = myObj.nextLine();
-        Hospital h = new Hospital(nombre,direcion);
-        Banco banco = new Banco();
 
+        Hospital h = HOSPITAL;
+        
         // algunos Medicos- caso de prueba.
         Medico ortopedista = new Medico(Categoria.ALTO_RENDIMIENTO, 78964, "Dr. Pérez", Especialidad.ORTOPEDISTA);
         Medico fisioterapeuta = new Medico(Categoria.OLIMPICO, 789013, "Dr. Pepe", Especialidad.FISIOTERAPEUTA);
@@ -149,137 +169,240 @@ public class Screen {
         ListaProfesionales.agregarProfesional(nutricionista);
         ListaProfesionales.agregarProfesional(optometrista);
 
+        Paciente pacientePrueba1 = new Paciente(Categoria.AFICIONADOS, 345, "Tartaglia", "M", 68, 179); 
+		Paciente pacientePrueba2 = new Paciente(Categoria.ALTO_RENDIMIENTO, 567, "Zhongli", "M", 80, 190); 
+		Paciente pacientePrueba3 = new Paciente(Categoria.OLIMPICO, 789, "Furina", "F", 50, 150); 
+
+		HOSPITAL.anadirPaciente(pacientePrueba3);
+		HOSPITAL.anadirPaciente(pacientePrueba2);
+		HOSPITAL.anadirPaciente(pacientePrueba1);
+		
+		pacientePrueba3.getCuentaBancaria().setSaldo(20000);
+		pacientePrueba1.getCuentaBancaria().setSaldo(10000);
+		pacientePrueba1.getCuentaBancaria().setEstadoDeReporte(true);
+		pacientePrueba2.getCuentaBancaria().setSaldo(0);
+		pacientePrueba2.getCuentaBancaria().setEstadoDeReporte(false);
+		
+		
+		Enfermedad enfermedad1 = new Enfermedad("Eleazar", 3, Especialidad.FISIOTERAPEUTA, "ConocmientoProhibido", "Escamas");
+		Enfermedad enfermedad2 = new Enfermedad("PilarCelestial", 4, Especialidad.OPTOMETRISTA, "ConocmientoProhibido", "Muerte instantanea");
+		Enfermedad enfermedad3 = new Enfermedad("DesastreKaenheria", 5, Especialidad.NUTRICIONISTA, "ConocmientoProhibido", "Maldiciones:inmortalidad, convertirse en monstruo");
+        Enfermedad enfermedad4 = new Enfermedad("InundacionRemuria", 6, Especialidad.ORTOPEDISTA, "ConocmientoProhibido", "Ahogamiento");
+
+
+        Fecha fecha1 = new Fecha(4,5,2023,10);
+        Fecha fecha2 = new Fecha(19,7,2023,14);
+        Fecha fecha3 = new Fecha(1,1,2023,8);
+        Fecha fecha4 = new Fecha(23,9,2023,17);
+        Fecha fecha5 = new Fecha(30,12,2023,12);
+        Fecha fecha6 = new Fecha(13,10,2023,13);
+        
+        Cita cita1 = pacientePrueba1.agendarCita(ortopedista, fecha1 , Tipo.CIRUGIA, Especialidad.ORTOPEDISTA); //Cirugia
+		Cita cita2 = pacientePrueba2.agendarCita(ortopedista, fecha2 , Tipo.CIRUGIA, Especialidad.ORTOPEDISTA); //Cirugia
+        Cita cita3 = pacientePrueba2.agendarCita(optometrista, fecha3, Tipo.TERAPIA, Especialidad.OPTOMETRISTA); //Terapia
+		Cita cita4 = pacientePrueba3.agendarCita(ortopedista, fecha4, Tipo.CIRUGIA, Especialidad.ORTOPEDISTA); //Cirugia
+		Cita cita5 = pacientePrueba3.agendarCita(nutricionista , fecha5, Tipo.CONSULTA, Especialidad.NUTRICIONISTA); //Consulta
+		Cita cita6 = pacientePrueba3.agendarCita(fisioterapeuta, fecha6, Tipo.CONSULTA, Especialidad.FISIOTERAPEUTA); //Consulta
+
+        Cirugia cirugia1 = new Cirugia(Especialidad.ORTOPEDISTA, enfermedad4, cita6);
+		Cirugia cirugia2 = new Cirugia(Especialidad.ORTOPEDISTA, enfermedad4, cita1);
+		Cirugia cirugia3 = new Cirugia(Especialidad.ORTOPEDISTA, enfermedad4, cita3);
+		Terapia terapia1 = new Terapia(Especialidad.OPTOMETRISTA, enfermedad2, cita2, 60);
+		Consulta consulta1 = new Consulta(Especialidad.NUTRICIONISTA, enfermedad3, cita4);
+		Consulta consulta2 = new Consulta(Especialidad.FISIOTERAPEUTA, enfermedad1, cita5);
+		
+		
+		pacientePrueba1.actualizarHistorialCirugias(cirugia2);
+        pacientePrueba2.actualizarHistorialTerapias(terapia1);
+		pacientePrueba2.actualizarHistorialCirugias(cirugia3);
+        pacientePrueba3.actualizarHistorialCirugias(cirugia1);
+		pacientePrueba3.actualizarHistorialConsultas(consulta1);
+		pacientePrueba3.actualizarHistorialConsultas(consulta2);
+		
+
         for (int i = 1;i<maxHabitacion;i++){
-            h.habitaciones.add(new Habitacion(i));
+            h.habitaciones.add(new Habitacion());
         }
 
+		Paciente p=null;
+		int loop = 1;
 
+        String eleccionExterna = "";
+        String eleccionInterna = "";
+        
         do {
             Screen.eraseScreen();
             Screen.imprimirMenu(h);
-            choice = myObj.nextLine();
+            eleccionExterna = SCANNER.nextLine();
             Screen.eraseScreen();
+            
 
-
-            switch (choice) {
-                case "0":
-                    Screen.imprimirHospital(h);
-                    choice = myObj.nextLine();
-                    break;
-
+            switch (eleccionExterna) {
                 case "1":
-                    Screen.imprimirProfesionales();
-                    choice = myObj.nextLine();
+                    screenAgendarCita();
                     break;
-
+                    
                 case "2":
-                    System.out.println("Entrar nombre del paciente");
-                    nombre = myObj.nextLine();
-                    System.out.println("Entrar el id del paciente");
-                    id = myObj.nextInt();
-                    System.out.println("Entrar el sexo del paciente");
-                    sexo = myObj.next();
-                    System.out.println("Entrar el peso del paciente");
-                    peso = myObj.nextInt();
-                    System.out.println("Entrar la talla del paciente");
-                    talla = myObj.nextInt();
-
-                    Paciente p = new Paciente(F1.obtenerCategoriaPorInput(),id,nombre,sexo,peso,talla);
-                    h.anadirPaciente(p);
-                    choice = myObj.nextLine();
+                    screenOrdenMedica();
                     break;
 
                 case "3":
+                    screenAsignarHabitacion();
                     break;
 
                 case "4":
-                    Screen.imprimirPacientes(h);
-                    System.out.println("Entrar el id del paciente que desea una cita");
-                    id = myObj.nextInt();
-                    F1.generarCita(h.buscarPaciente(id));
-
-                    choice = myObj.nextLine();
-
+                    screenGenerarRutinas();
                     break;
-                
+
                 case "5":
-                    Screen.imprimirPacientes(h);
-                    System.out.println("Entrar el id del paciente que desea una cita");
-                    id = myObj.nextInt();
-                    F4.generarRutina(h.buscarPaciente(id));
-                    F4.generarEjerciciosOrdenados();
+                    screenFacturacion();
                     break;
                 
-                case "6":
-                    Screen.imprimirPacientes(h);
-                    F5.facturacion(h, banco);
-                    break;
-                
-                case "7":
-                	System.out.println("================================================");
-                	System.out.println("||   Registrar los datos de la orden medica   ||");
-                	System.out.println("================================================");
-                	
-                	System.out.println(F2.azul + "Generando la orden medica en el sistema...... se tardara unos minutos" + F2.reiniciar);
-                    System.out.println("Entrar nombre del paciente");
-                    nombre = myObj.nextLine();
-                    System.out.println("Entrar el id del paciente");
-                    id = myObj.nextInt();
-                    System.out.println("Entrar el sexo del paciente");
-                    sexo = myObj.next();
-                    System.out.println("Entrar el peso del paciente");
-                    peso = myObj.nextInt();
-                    System.out.println("Entrar la talla del paciente");
-                    talla =myObj.nextInt();
+                case "0":
+                	System.out.println("Entrar 1 para agregar un paciente");
+                    System.out.println("Entrar 2 para agregar un medico");
+                    System.out.println("Entrar 3 para agregar una enfermedad");
+                    eleccionInterna = SCANNER.nextLine();
+                    switch (eleccionInterna) {
+                    case "1":
+                    	screenAgregarPaciente();
+                    	break;
+                    case "2":
+                    	screenAgregarMedico();
+                    	break;
+                    case "3":
+                    	screenAgregarEnfermedad();
+                    	break;
+                    }
                     
                     
-                    Paciente paciente=new Paciente(F1.obtenerCategoriaPorInput(),id,nombre,sexo,peso,talla);
-                	System.out.println("Nombre de la enfermedad");
-                	nombreEnfermedad= myObj.next();
-                	System.out.println("Ingrese la cantidad del paciente");
-                	cantidad=myObj.nextInt();
-                	System.out.println("Ingresar la especialidad del paciente");
-                	Especialidad especialidad=F2.obtenerEspecialidad();
-                	System.out.print("Ingrese la tipologia del paciente: ");
-                	tipologia=myObj.next();
-                	
-                	
-                	System.out.print("Ingrese los sintomas del paciente: ");
-                	
-                	sintomas=myObj.next();
-                
-                	
-             
-                	Medico medico=F2.asignarMedico();
-                	System.out.println(medico);
-                	
-                   	Restriccion restriccion=F2.restriccionPaciente();
-                   	Enfermedad enfermedad;
-                	if(restriccion==null) {
-                		enfermedad=new Enfermedad(nombreEnfermedad,cantidad,especialidad,tipologia,sintomas);
-                		
-                	}
-                	else {
-                		 enfermedad=new Enfermedad(nombreEnfermedad,cantidad,especialidad,tipologia,sintomas,restriccion);
-                	}	
-                	System.out.println("Escribir las recomendaciones que se le daran al paciente");
-                	recomendaciones=myObj.next();
-                	System.out.println("Generando orden medica......");
-                	OrdenMedica ordenMedica= new OrdenMedica(paciente,enfermedad,medico,recomendaciones);
-                	OrdenMedica crearOrden= F2.generarOrdenMedica(ordenMedica);
-                	break;
-
                 case "quit":
                     System.out.println("Gracias por uso ! Hasta Pronto en nuestro hospital \u001B[34m" + h.getNombre() +"\u001B[0m");
                     loop = 0;
-                    choice = myObj.nextLine();
                     Screen.eraseScreen();
                     break;
+                    
+                default:
+                	System.out.println("Opción no válida, intente de nuevo");
+                	break;
             } 
+            
+            if (loop == 1) {
+                String continuar = F0.obtenerEleccionDeSioNo("Deseas hacer algo más en la aplicación?");
+                if (continuar.equals("N")) {
+                	System.out.println("Gracias por uso ! Hasta Pronto en nuestro hospital \u001B[34m" + h.getNombre() +"\u001B[0m");
+                	loop = 0;
+                }
 
-
+            }
+            
         }while (loop == 1);
 
-        myObj.close();
-    } 
+        SCANNER.close();
+    }
+
+
+    // Metodos menu
+
+    public static void screenAgendarCita() {
+		imprimirPacientes(HOSPITAL);
+        Paciente paciente = F0.obtenerPacientePorInput();
+		F1.generarCita(paciente);
+    }
+    
+    public static void screenOrdenMedica(){
+    	Paciente paciente = F0.obtenerPacientePorInput();
+    	Cita cita = paciente.getUltimaCita();
+    	if (cita == null) {
+    		System.out.println("El paciente no tiene citas en el registro");
+    		return;
+    	} 
+    	Especialidad especialidad = cita.getMedico().getEspecialidad();
+    	Enfermedad enfermedad = F0.obtenerEnfermedadPorInput();
+    	int peso = F0.obtenerEnteroPorInput("Entrar el peso del paciente:");
+    	paciente.setPeso(peso);
+    	int talla = F0.obtenerEnteroPorInput("Entrar la talla del paciente:");
+	 	paciente.setTalla(talla);
+	 	
+	 	Consulta consulta = new Consulta(especialidad, enfermedad, cita);
+	 	F2.screenOrdenMedica(consulta);
+    }
+      
+    public static void screenAsignarHabitacion() {
+    	Screen.imprimirHospital(h);
+        choice = SCANNER.nextLine();
+        
+        Screen.imprimirProfesionales();
+        choice = SCANNER.nextLine();
+        
+        System.out.println("Entrar nombre del paciente");
+        String nombre = SCANNER.nextLine();
+        id = F0.obtenerEnteroPorInput("Entrar el id del paciente:");
+        System.out.println("Entrar el sexo del paciente");
+        sexo = pedirSexo();
+        peso = F0.obtenerEnteroPorInput("Entrar el peso del paciente:");
+        talla = F0.obtenerEnteroPorInput("Entrar la talla del paciente:");
+
+        p = new Paciente(F0.obtenerCategoriaPorInput(),id,nombre,sexo,peso,talla);
+        h.anadirPaciente(p);
+        h.asignarHabitacion(p);
+        choice = SCANNER.nextLine();
+    }
+    
+    public static void screenGenerarRutinas () {
+		imprimirPacientes(HOSPITAL);
+        Paciente paciente = F0.obtenerPacientePorInput();
+        F4.screenRutina(paciente);
+        
+    }
+    
+    public static void screenFacturacion () {
+    	Screen.imprimirPacientes(HOSPITAL);
+        F5.facturacion(HOSPITAL, BANCO);
+    }
+
+  
+    public static void screenAgregarPaciente() {
+        System.out.println("Entrar nombre del paciente: ");
+        String nombre = SCANNER.nextLine();
+        int id = F0.obtenerEnteroPorInput("Ingresar el num de identificacion: ");
+        String sexo = pedirSexo();
+        int peso = F0.obtenerEnteroPorInput("Entrar el peso del paciente:");
+        int talla = F0.obtenerEnteroPorInput("Entrar la talla del paciente:");
+        Categoria categoria = F0.obtenerCategoriaPorInput();
+        
+        Paciente paciente = new Paciente(categoria,id,nombre,sexo,peso,talla);
+        HOSPITAL.anadirPaciente(paciente);
+        HOSPITAL.asignarHabitacion(paciente);
+    }
+    
+    public static void screenAgregarMedico() {
+        System.out.println("Entrar nombre del medico: ");
+        String nombre = SCANNER.nextLine();
+        int id = F0.obtenerEnteroPorInput("Ingresar el num de identificacion: ");
+        Categoria categoria = F0.obtenerCategoriaPorInput();
+        Especialidad especialidad = F0.obtenerEnumPorInput(Especialidad.class, "Ingrese la especidalidad");
+        
+        Medico medico = new Medico(categoria, id, nombre, especialidad);
+        HOSPITAL.addMedicos(medico);
+    }
+    
+    public static void screenAgregarEnfermedad() {
+        System.out.println("Entrar nombre de la enfermedad: ");
+        String nombre = SCANNER.nextLine();
+        int cantidad = F0.obtenerEnteroPorInput("Ingresar la cantidad: ");
+        Especialidad especialidad = F0.obtenerEnumPorInput(Especialidad.class, "Ingrese la especidalidad");
+        System.out.println("Entrar nombre de la tipologia: ");
+        String tipologia = SCANNER.nextLine();
+        System.out.println("Entrar los sintomas: ");
+        String sintomas = SCANNER.nextLine();
+        Restriccion restriccion = F0.obtenerEnumPorInput(Restriccion.class, "Ingrese la restriccion: ");
+         
+        
+       Enfermedad enfermedad = new Enfermedad(nombre, cantidad, especialidad, tipologia, sintomas, restriccion);
+       HOSPITAL.addEnfermedad(enfermedad);
+    }
+    
+    
 }
+    

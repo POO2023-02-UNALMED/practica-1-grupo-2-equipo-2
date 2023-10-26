@@ -2,11 +2,30 @@
 package uiMain.Funcionalidades;
 
 import gestorAplicacion.sujeto.*;
+import uiMain.Screen;
 import gestorAplicacion.adminHospitalaria.*;
+import gestorAplicacion.instalaciones.Hospital;
+import gestorAplicacion.serviciosOfrecidos.Tipo;
+import java.text.ParseException;
+
+
 import java.util.Scanner;
+import java.util.ArrayList;
+import static uiMain.Screen.SCANNER;
+import java.util.Calendar;
 
 public class F1 {
+	
+
+	// EL HOSPITALXD
+	private static String TESTNOMBRE = "testNombre";
+	private static String TESTDIRECCION = "testDireccion";
+	private static Hospital HOSPITAL = new Hospital(TESTNOMBRE, TESTDIRECCION);
+	static Scanner SCANNER_CITA = SCANNER;
+	
+	
 	static {
+		
 		// algunos Medicos- caso de prueba.
         Medico ortopedista = new Medico(Categoria.ALTO_RENDIMIENTO, 78964, "Dr. Pérez", Especialidad.ORTOPEDISTA);
         Medico fisioterapeuta = new Medico(Categoria.OLIMPICO, 789013, "Dr. Pepe", Especialidad.FISIOTERAPEUTA);
@@ -27,112 +46,146 @@ public class F1 {
         ListaProfesionales.agregarProfesional(nutricionista2);
         ListaProfesionales.agregarProfesional(optometrista2);
     }
-	//*prueba
-	 public static void generarCita() {
-	        Scanner scanner = new Scanner(System.in);
 
-	        // se solicita el nombre del paciente primero.
-	        System.out.print("Ingrese su nombre: ");
-	        String nombrePaciente = scanner.nextLine();
-	        
-	        // se solicita el numero de identificación al paciente.
-	        System.out.print("Ingrese su número de identificación: ");
-	        int idPaciente = scanner.nextInt();
-	        
-	     // Solicitar la categoría del paciente
-	        Categoria categoriaPaciente = obtenerCategoriaPorInput();
-	        
-	        // se crea un paciente con información proporcionada por el usuario- ¿como pedir la categoria?
-	       
-	        Paciente paciente = new Paciente(categoriaPaciente, idPaciente, nombrePaciente,"Masculino",0,0);
+
+	 	public static void generarCita(Paciente paciente) {
+
 	        
 	        // Se solicita la información de la especialidad para la que se desea tener cita.
-	        System.out.print("Ingrese la especialidad (ORTOPEDISTA, FISIOTERAPEUTA, NUTRICIONISTA, OPTOMETRISTA): ");
-	        String especialidadString = scanner.next();
-	        Especialidad especialidad = Especialidad.valueOf(especialidadString);
-
+	         
+	        Tipo tipo = F0.obtenerEnumPorInput(Tipo.class, "Ingrese el tipo de cita deseada: ");
+	        Especialidad especialidad = F0.obtenerEnumPorInput(Especialidad.class, "Ingrese la especialidad (ORTOPEDISTA, FISIOTERAPEUTA, NUTRICIONISTA, OPTOMETRISTA): ");
+	        Categoria categoria = paciente.getCategoria();
 	        
 	       //Se pide la fecha para la cita.
-	        System.out.print("Ingrese la fecha (dd/mm/yyyy): ");
-	        String fecha = scanner.next();
+	        Fecha fecha = obtenerFechaPorInput();
+	        
 	        
 	     // Se encuentra un médico disponible con la especialidad seleccionada
-	        Medico medicoDisponible = ListaProfesionales.buscarMedicoPorEspecialidad(especialidad);
 	        
-	        
-	        //logica para terminar la creacion de la cita, se verifica que hay medicos disponibles para asignar al paciente.
-	        if (medicoDisponible != null) {
-	            // Se agenda la cita
-	            Cita nuevaCita = paciente.agendarCita(medicoDisponible, fecha);
+	        ArrayList<Medico> medicosDisponibles = generarListaMedicos(especialidad, categoria, fecha);
 
-	            // Se informa al usuario sobre la cita agendada
-	            System.out.println("¡Cita agendada con éxito!");
-	            System.out.println("Médico: " + nuevaCita.getMedico().getNombre());
-	            System.out.println("Especialidad: " + nuevaCita.getMedico().obtenerEspecialidad());
-	            System.out.println("Fecha: " + nuevaCita.getFecha());
-	        } else {
-	            System.out.println("Lo sentimos, no hay médicos disponibles para la especialidad seleccionada.");
-	        }
-			scanner.close();
-	    }
-
-
-
-public static void generarCita(Paciente paciente) {
-	         Scanner scanner = new Scanner(System.in);
-
-	    //     // se solicita el nombre del paciente primero.
-	    //     System.out.print("Ingrese su nombre: ");
-	    //     String nombrePaciente = scanner.nextLine();
-	        
-	    //     // se solicita el numero de identificación al paciente.
-	    //     System.out.print("Ingrese su número de identificación: ");
-	    //     int idPaciente = scanner.nextInt();
-	        
-	    //  // Solicitar la categoría del paciente
-	    //     Categoria categoriaPaciente = obtenerCategoriaPorInput();
-	        
-	    //     // se crea un paciente con información proporcionada por el usuario- ¿como pedir la categoria?
-	       
-	    //     Paciente paciente = new Paciente(categoriaPaciente, idPaciente, nombrePaciente);
-	        
-	        // Se solicita la información de la especialidad para la que se desea tener cita.
-	        System.out.print("Ingrese la especialidad (ORTOPEDISTA, FISIOTERAPEUTA, NUTRICIONISTA, OPTOMETRISTA): ");
-	        String especialidadString = scanner.next();
-	        Especialidad especialidad = Especialidad.valueOf(especialidadString);
-
-	        
-	       //Se pide la fecha para la cita.
-	        System.out.print("Ingrese la fecha (dd/mm/yyyy): ");
-	        String fecha = scanner.next();
-	        
-	     // Se encuentra un médico disponible con la especialidad seleccionada
-	        Medico medicoDisponible = ListaProfesionales.buscarMedicoPorEspecialidad(especialidad);
-	        
 	        
 	        //logica para terminar la creacion de la cita, se verifica que hay medicos disponibles para asignar al paciente.
-	        if (medicoDisponible != null) {
+	        if (medicosDisponibles.size() != 0) {
+	        	for (Medico medico : medicosDisponibles) {
+		        	System.out.println(medico);
+		        }
+	        	Medico medicoElegido = obtenerMedicoPorInput();
 	            // Se agenda la cita
-	            Cita nuevaCita = paciente.agendarCita(medicoDisponible, fecha);
+	            Cita nuevaCita = paciente.agendarCita(medicoElegido, fecha, tipo, especialidad);
 
-	            // Se informa al usuario sobre la cita agendada
-	            System.out.println("¡Cita agendada con éxito!");
-	            System.out.println("Médico: " + nuevaCita.getMedico().getNombre());
-	            System.out.println("Especialidad: " + nuevaCita.getMedico().obtenerEspecialidad());
-	            System.out.println("Fecha: " + nuevaCita.getFecha());
+	             System.out.println("--------------------------------------------------");
+	            System.out.println("|               Hoja de Cita Médica              |");
+	            System.out.println("--------------------------------------------------");
+	            System.out.println("| Paciente:" + paciente.getNombre()+"                                  |");
+	            System.out.println("| ID:" + paciente.getNumeroIdentificacion()+"                                        |");
+	            System.out.println("| Categoría:" + paciente.getCategoria()+"                             |");
+	            System.out.println("| Especialidad:" + nuevaCita.getMedico().getEspecialidad()+"                      |");
+	            System.out.println("| Médico:" + nuevaCita.getMedico().getNombre()+"                          |");
+	            System.out.println("| Fecha:" + nuevaCita.getFecha()+"                               |");
+	            System.out.println("--------------------------------------------------");
 	        } else {
-	            System.out.println("Lo sentimos, no hay médicos disponibles para la especialidad seleccionada.");
+	            System.out.println("Lo sentimos, no hay médicos disponibles para la fecha seleccionada.");
 	        }
-			scanner.close();
 	    }
 
 
-	 public static Categoria obtenerCategoriaPorInput() {
-	        Scanner scanner = new Scanner(System.in);
+ 	public static Fecha obtenerFechaPorInput() {
+ 	    Fecha fecha = null;
+ 	    int dia = 0;
+ 	    int mes = 0;
+ 	    int año = 0;
+ 	    int hora = 0;
+ 	    int APERTURA = 7;
+ 	    int CIERRE = 22;
+ 	    int LIMITEAÑO = 2024;
+ 	    int AÑOACTUAL = 2023;
 
-	        System.out.print("Ingrese su categoría (ALTO_RENDIMIENTO, OLIMPICO, AFICIONADOS): ");
-	        String categoriaString = scanner.next();
-	        return Categoria.valueOf(categoriaString);
-	    }
+ 	    // Obtener fecha actual
+ 	    Calendar now = Calendar.getInstance();
+ 	    int diaActual = now.get(Calendar.DAY_OF_MONTH);
+ 	    int mesActual = now.get(Calendar.MONTH) + 1;  // +1 porque en Java los meses comienzan en 0
+ 	    int añoActual = now.get(Calendar.YEAR);
 
+ 	    do {
+ 	        año = F0.obtenerEnteroConLimitePorInput(AÑOACTUAL, LIMITEAÑO, "Ingrese el año deseado para la cita:");
+ 	        mes = F0.obtenerEnteroConLimitePorInput(1, 12, "Ingrese el mes deseado para la cita:");
+ 	        if (mes == 1 || mes == 3 || mes == 4 || mes == 7 || mes == 8 || mes == 10 || mes == 12) {
+ 	            dia = F0.obtenerEnteroConLimitePorInput(1, 31, "Ingrese el día deseado para la cita (de 1 a 31):");
+ 	        }
+ 	        else if (mes == 5 || mes == 6 || mes == 9 || mes == 11) {
+ 	            dia = F0.obtenerEnteroConLimitePorInput(1, 30, "Ingrese el día deseado para la cita (de 1 a 30):");
+ 	        }
+ 	        else {
+ 	            dia = F0.obtenerEnteroConLimitePorInput(1, 28, "Ingrese el día deseado para la cita (de 1 a 28) :");
+ 	        }
+
+ 	        hora = F0.obtenerEnteroConLimitePorInput(APERTURA, CIERRE, String.format("Ingrese la hora deseada para la cita en formato militar y sin ingresar minutos, números enteros entre %d y %d", APERTURA, CIERRE));
+ 	        
+ 	        fecha = new Fecha(dia, mes, año, hora);
+ 	        
+ 	        if (año < añoActual || (año == añoActual && mes < mesActual) || (año == añoActual && mes == mesActual && dia < diaActual)) {
+ 	            System.out.println("La fecha no puede ser anterior a la fecha actual. Intente de nuevo.");
+ 	            fecha = null;  // Esto es para que el bucle continúe
+ 	        }
+
+ 	    } while(fecha == null);
+ 	    return fecha;
+ 	}
+     
+
+	 public static Medico obtenerMedicoPorInput() {
+		 Medico medicoObtenido = null;
+		 String ID;
+		 long IDConvertido = 0;
+		 
+		 do {
+			 System.out.println("Por favor ingrese el numero de identificacion del médico que desea seleccionar, sin espacios ni guiones: ");
+			 ID = SCANNER_CITA.nextLine();
+			 
+			 try {
+				 IDConvertido = Integer.parseInt(ID);
+			 } catch (IllegalArgumentException e) {
+		            System.out.println("Entrada inválida, por favor intente de nuevo.");
+			 }
+		 } while( IDConvertido == 0);
+		 
+		 
+		 for (Medico medico : F1.HOSPITAL.getListaMedicos()) {
+			 if (medico.getNumeroIdentificacion() == IDConvertido) {
+				 medicoObtenido = medico;
+				 return medicoObtenido; // Si encuentra, retorna el médico y rompe el método para no gastar recursos
+			 }
+		 }
+		 
+		 return medicoObtenido; // Si no encuentra, retorna null
+	 }
+	 
+	 
+	 //Revisa la agenda, categoria y especialidad y regresa solo los disponibles para las opciones seleccionadas
+	 public static ArrayList<Medico> generarListaMedicos (Especialidad especialidad, Categoria categoria, Fecha fecha){
+		 ArrayList <Medico> medicosDisponibles = new ArrayList<>();
+		 ArrayList <Medico> medicosPosibles = new ArrayList<>();
+		 Medico medicoExcluido = null;
+		 
+		 for (Medico medico : F1.HOSPITAL.getListaMedicos()) {
+			 if (medico.getCategoria() == categoria && medico.getEspecialidad() == especialidad) {
+				 medicosPosibles.add(medico);
+			 }
+		 }
+		 
+		 for (Medico medico : medicosPosibles) {
+			 for (Cita cita: medico.getAgenda()) {
+				 if (cita.getFecha().comparar(fecha)) {
+					 medicoExcluido = medico;
+				 }
+			 }
+			 if (medicoExcluido.getNombre() != medico.getNombre()) {
+				 medicosDisponibles.add(medico);
+			 }
+		 }
+		 
+		 return medicosDisponibles;
+	 }
 }

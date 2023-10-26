@@ -2,12 +2,13 @@ package gestorAplicacion.sujeto;
 
 import java.util.HashMap;
 import java.util.Random;
+import gestorAplicacion.instalaciones.Organos;
 
 public class CuentaBancaria {
 	private double saldo;
 	private double deuda = 0.0;
 	private boolean estadoDeReporte;
-	private HashMap <String , Integer> organosDonar; 
+	private HashMap <Organos , Integer> organosDonar; 
 
 	public CuentaBancaria() {
 		this.saldo = generadorSaldoAleatorio();
@@ -31,7 +32,7 @@ public class CuentaBancaria {
 			deuda += cantidad;
 		}
 
-		public void agregarOrganoDonar(String organo, int cantidad) {
+		public void agregarOrganoDonar(Organos organo, int cantidad) {
 			// Verificar si el órgano ya existe en el diccionario
 			if (organosDonar.containsKey(organo)) {
 				// Si existe, actualizar la cantidad
@@ -74,11 +75,11 @@ public class CuentaBancaria {
         this.saldo = saldo;
     }
 
-    public HashMap<String, Integer> getOrganosDonar() {
+    public HashMap<Organos, Integer> getOrganosDonar() {
         return organosDonar;
     }
 
-    public void setOrganosDonar(HashMap<String, Integer> organosDonar) {
+    public void setOrganosDonar(HashMap<Organos, Integer> organosDonar) {
         this.organosDonar = organosDonar;
     }
 

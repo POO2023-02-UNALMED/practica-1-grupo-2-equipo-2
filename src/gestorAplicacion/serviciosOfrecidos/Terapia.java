@@ -15,22 +15,24 @@ public class Terapia extends Consulta{
 	public static final double PRECIO_BASE_TERAPIA = 2000000;
 	
 	//Atributos 
-	int duracion;
+	int duracion; //duracion en minutos
 	int intensidad;
+	
+	
 	 
-    /* Este constructor se ejecuta cuando la cantidad de citas de terapia necesarias para 
-     * el tratamiento es solo una, devolviendo ese valor 1 en cantidad */
-	public Terapia(String nombre, Especialidad especialidad, Enfermedad enfermedad, Cita cita, int duracion, int intensidad) {
-		this(nombre, 1, especialidad, enfermedad, cita, duracion, intensidad);
+	// Si no se especifica duración, la duración por default es de 1 hora (60 minutos)
+	public Terapia(Especialidad especialidad, Enfermedad enfermedad, Cita cita, int intensidad) {
+        this(especialidad, enfermedad, cita, intensidad, 60);
 	}
+	
 	/* Este constructor se ejecuta cuando el medico necesita especificar la cantidad
      * de consultas necesarias para un tratamiento*/
 	// Constructor específico para Terapia
-	 public Terapia(String nombre, int cantidad, Especialidad especialidad, Enfermedad enfermedad, Cita cita, int duracion, int intensidad) {
-	        super(nombre, cantidad, especialidad, enfermedad, cita); 
+	 public Terapia(Especialidad especialidad, Enfermedad enfermedad, Cita cita, int intensidad, int duracion) {
+	        super(especialidad, enfermedad, cita); 
 	        this.duracion = duracion;
 	        this.intensidad = intensidad;
-	    }
+	 }
     
     
     /*Calcula el precio de la terapia para un paciente dado.
@@ -56,8 +58,7 @@ public class Terapia extends Consulta{
     @Override
     public String toString() {
         return  "* Terapia con el médico: " + this.getCita().getMedico().getNombre() + "\n" +
-        		"* Nombre del tratamiento: " + this.getNombre() +  "\n" +
-        		"* Especialidad: " + this.getCita().getMedico().obtenerEspecialidad() + "\n" +
+        		"* Especialidad: " + this.getCita().getMedico().getEspecialidad() + "\n" +
                 "* Enfermedad: " + this.getEnfermedad().getNombre() + "\n" +
                 "* Fecha: " + this.getCita().getFecha() + "\n" +
                 "* Precio: " + this.calcularPrecio(this.getCita().getPaciente()) + "\n";

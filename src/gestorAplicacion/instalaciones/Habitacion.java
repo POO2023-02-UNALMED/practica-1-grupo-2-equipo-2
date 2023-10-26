@@ -4,26 +4,28 @@
 
 package gestorAplicacion.instalaciones;
 
+import java.util.ArrayList;
+
+import gestorAplicacion.adminHospitalaria.Cita;
 import gestorAplicacion.sujeto.Paciente;
 
 /*Descripción: Esta clase se encarga de definir el elemento habitacion que los pacientes tienen.*/
 public class Habitacion {
-    private int id;
+    private static long contador = 0;
+    public final long ID;
     private boolean occupada;
+    private ArrayList <Cita> agenda;
     private Paciente paciente;
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
-
+    
+    public Habitacion () {
+    	this.ID = contador;
+    	contador++;
+    }
+    
     //getters t setters
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public boolean isOccupada() {
         return this.occupada;
@@ -32,22 +34,19 @@ public class Habitacion {
     public void setOccupada(boolean occupada) {
         this.occupada = occupada;
     }
-
-    public Paciente getPaciente() {
-        return this.paciente;
+    
+    public Paciente getPaciente () {
+    	return this.paciente;
     }
-
+    
+    public long getId() {
+    	return this.ID;
+    }
+    
     public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    	this.paciente = paciente;
     }
-
-    public Habitacion(int i){
-        this.id = i;
-        this.occupada = false;
-        this.paciente = null;
-    }
-
-
+    
     // funcion que hace el enlace entre un paciente y un habitiacion
     public void reservarHabitacion(Paciente p){
         if(this.occupada == false){

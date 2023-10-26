@@ -3,25 +3,30 @@
  */
 
 package gestorAplicacion.sujeto;
+import gestorAplicacion.instalaciones.Hospital;
+import static uiMain.Screen.HOSPITAL;
 
 public class Enfermedad extends EvaluacionMedica{
 	
 	//Atributos
+	private static final Hospital HOSPITAL1 = HOSPITAL;
 	private String tipologia;
 	private String sintomas;
 	private Restriccion restriccion;
 	//Constructor
+	public Enfermedad(String nombre, int cantidad, Especialidad especialidad, String tipologia, String sintomas) {
+        this(nombre, cantidad, especialidad, tipologia, sintomas, null);
+	}
+	
 	public Enfermedad(String nombre, int cantidad, Especialidad especialidad, String tipologia, String sintomas, Restriccion restriccion) {
         super(nombre, cantidad, especialidad);
         this.tipologia = tipologia;
         this.sintomas = sintomas;
         this.restriccion = restriccion;
+        
+        HOSPITAL1.addEnfermedad(this);
 	}
-	public Enfermedad(String nombre, int cantidad, Especialidad especialidad, String tipologia, String sintomas) {
-        super(nombre, cantidad, especialidad);
-        this.tipologia = tipologia;
-        this.sintomas = sintomas;
-	}
+
 
      // Getters y setters para tipologia
 	public String getTipologia() {

@@ -1,8 +1,10 @@
 package uiMain.Funcionalidades;
 import gestorAplicacion.sujeto.*;
 import gestorAplicacion.adminHospitalaria.*;
+import gestorAplicacion.serviciosOfrecidos.*;
 
 import java.util.Scanner;
+import static uiMain.Screen.SCANNER;
 
 public class F2 {
 	public static final String reiniciar = "\u001B[0m";
@@ -13,7 +15,7 @@ public class F2 {
 	public static final String morado = "\u001B[35m";
 	public static final String blanco = "\u001B[37m";
 	
-	public static final Scanner scanner= new Scanner(System.in);
+	public static final Scanner SCANNER_ORDEN= SCANNER;
 
 //Método que nos dará la especialidad del médico
 
@@ -52,11 +54,10 @@ public class F2 {
 	
 //Método que nos dará la especialidad del médico
 	public static Especialidad obtenerEspecialidad() {
-	    Scanner scanner = new Scanner(System.in);
 
 	    while (true) {
 	        System.out.println("Ingrese la especialidad -ORTOPEDISTA, FISIOTERAPEUTA, NUTRICIONISTA, OPTOMETRISTA-");
-	        String entrada = scanner.nextLine();
+	        String entrada = SCANNER_ORDEN.nextLine();
 
 	        for (Especialidad especialidad : Especialidad.values()) {
 	            if (especialidad.toString().equalsIgnoreCase(entrada)) {
@@ -67,15 +68,15 @@ public class F2 {
 	        System.out.println("Especialidad inválida. Por favor, ingrese una especialidad válida.");
 	    }
 	}
+	// este metodo se encargará de dar las restricciones que tiene el paciente
     public static Restriccion restriccionPaciente() {
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println("¿El paciente tiene alguna restricción médica? (Sí/No)");
-        String respuesta = scanner.nextLine();
+        String respuesta = SCANNER_ORDEN.nextLine().toUpperCase();
 
-        if (respuesta.equalsIgnoreCase("Sí")) {
+        if (respuesta.equalsIgnoreCase("SI")) {
             System.out.println("Ingrese la restricción -CARDIOVASCULAR, RESPIRATORIA, EQUILIBRIO, FUERZA, FLEXIBILIDAD-");
-            String restriccion = scanner.nextLine();
+            String restriccion = SCANNER_ORDEN.nextLine();
 
             try {
                 return Restriccion.valueOf(restriccion.toUpperCase());
@@ -88,61 +89,9 @@ public class F2 {
         return null;
     }
 
-		
-
-		
-	
-
-	
-//Método que guardará los datos del paciente para luego crear la orden médica	
-	public static void datosPaciente(){
-		System.out.print("Ingrese el nombre del paciente: ");
-		String nombre= scanner.nextLine();
-		
-		System.out.print("Ingrese la identificación del paciente: ");
-		int identificacion=Integer.parseInt(scanner.nextLine());
-
-		System.out.print(azul + "1-Si es deportista de Alto rendimiento" + "\n" + 
-				"2-Si es deportista olímpico" + "\n" + 
-				"3-Si es deportista aficionado" + reiniciar);
-		int opcion=Integer.parseInt(scanner.nextLine());
-		
-		Categoria categoria=null;
-		
-
-		switch(opcion){
-			
-			case 1:
-				categoria=Categoria.ALTO_RENDIMIENTO ;
-				break;
-			case 2:
-				categoria=Categoria.OLIMPICO;
-				break;
-			case 3:
-				categoria=Categoria.AFICIONADOS;
-				break;
-				
-			default:
-				System.out.print("Opción no válida");				
-		}
-		
-		System.out.print("Ingrese el sexo del paciente");
-		String sexo=scanner.nextLine();
-		
-		System.out.print("Ingrese la edad del paciente");
-		int peso=Integer.parseInt(scanner.nextLine());
-		
-		System.out.print("Ingrese la talla del paciente");
-		int talla=Integer.parseInt(scanner.nextLine());
-		
-		//Paciente creado
-		Paciente paciente= new Paciente(categoria,identificacion,nombre,sexo,peso,talla);
-		
-	}
-	
 	
 //Crearemos la orden médica 	
-	public static OrdenMedica generarOrdenMedica(OrdenMedica ordenMedica) {
+	public static void generarOrdenMedica(OrdenMedica ordenMedica) {
 		System.out.println("==============================================================================================================");
 		System.out.println("||                                                                                                          ||");
 		System.out.println("||                                                                                                          ||");
@@ -157,7 +106,7 @@ public class F2 {
 						+ "Talla del paciente: " + ordenMedica.getPaciente().getTalla());
 		System.out.println("==============================================================================================================");
 		System.out.println("Nombre del Medico: " + ordenMedica.getMedico().getNombre() + "\n" 
-						+ "Especialidad: " + ordenMedica.getMedico().obtenerEspecialidad() + "\n"
+						+ "Especialidad: " + ordenMedica.getMedico().getEspecialidad() + "\n"
 						+ "Numero de identificacion: " + ordenMedica.getMedico().getNumeroIdentificacion());
 		System.out.println("==============================================================================================================");
 		System.out.println("Enfermedad del paciente: " + ordenMedica.getEnfermedad().getNombre());
@@ -165,12 +114,21 @@ public class F2 {
 		System.out.println("==============================================================================================================");
 		System.out.println("Recomendaciones: " + ordenMedica.getRecomendaciones());
 		System.out.println("==============================================================================================================");
-		return null;
 	
 	}
 	
+	public static void screenOrdenMedica (Consulta consulta) {
+		Paciente paciente = consulta.getPaciente();
+		Enfermedad enfermedad = consulta.getEnfermedad();
+		Medico medico = consulta.getMedico();
+		
+		System.out.print("Por favor ingrese las recomendaciones, solo presione enter después de ingresar toda la información: ");
+		String recomendaciones = SCANNER_ORDEN.next();
 
-
+		OrdenMedica ordenNueva = new OrdenMedica(paciente, enfermedad, medico, recomendaciones);
+		
+		generarOrdenMedica(ordenNueva);
+		paciente.actualizarHistorialOrdenes(ordenNueva);
 	}
 
-
+}

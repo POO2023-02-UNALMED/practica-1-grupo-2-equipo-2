@@ -19,7 +19,8 @@ public class Paciente extends Persona implements Pago{
 	// Atributos
 	/*Aplica ligadura dinamica porque entran objetos de tipo consulta, terapia y cirugia */
         private HistoriaClinica historiaClinica;
-        private final ArrayList<Consulta> consultas; 
+        private ArrayList<Consulta> consultas; 
+        private ArrayList<Cita> citas;
         private Habitacion habitacionAsignada;
         private CuentaBancaria cuentaBancaria; 
         private String sexo;
@@ -32,6 +33,7 @@ public class Paciente extends Persona implements Pago{
 		this.historiaClinica = new HistoriaClinica(this); 
 		this.cuentaBancaria =  new CuentaBancaria();
         this.consultas = new ArrayList<>();
+        this.setCitas(new ArrayList<>());
         this.sexo = sexo;
         this.peso = peso;
         this.talla = talla;
@@ -46,8 +48,9 @@ public class Paciente extends Persona implements Pago{
     
     // Implementación del método obtenerServiciosSinPagar de la interfaz Pago
     @Override
-    public String obtenerServiciosSinPagar() {
+    public String[] obtenerServiciosSinPagar() {
         StringBuilder infoServiciosSinPagar = new StringBuilder();
+        StringBuilder indicesDisponibles = new StringBuilder();
         serviciosSinPagar.clear(); // Limpia la lista en caso de llamadas múltiples
 
         // Recorre las consultas sin pagar y agrega al listado de servicios sin pagar
@@ -57,7 +60,6 @@ public class Paciente extends Persona implements Pago{
             }
         }
 
-        // Recorre las cirugías sin pagar y agrega al listado de servicios sin pagar
         for (Cirugia cirugia : historiaClinica.getHistorialCirugias()) {
             if (!cirugia.isPagada()) {
                 serviciosSinPagar.add(cirugia);
@@ -81,12 +83,13 @@ public class Paciente extends Persona implements Pago{
                 infoServiciosSinPagar.append(ConsoleColors.RED_BACKGROUND_BRIGHT + ConsoleColors.WHITE_BOLD_BRIGHT + "Servicio N°")
                 .append(i).append("\n").append(ConsoleColors.YELLOW_BACKGROUND_BRIGHT + ConsoleColors.BLUE_BOLD_BRIGHT + "\n")
                 .append(servicio.toString()).append("\n").append(ConsoleColors.RESET + "\n");
+                indicesDisponibles.append(i).append(" "); // Agregar un espacio entre índices
             }
         } else {
-            return "No hay servicios pendientes de pago";
+            return new String[] { "No hay servicios pendientes de pago" };
         }
 
-        return infoServiciosSinPagar.toString();
+        return new String[] { infoServiciosSinPagar.toString() , indicesDisponibles.toString()};
     }
     
     // ----------------------------------------------------------------------------- //
@@ -162,6 +165,7 @@ public class Paciente extends Persona implements Pago{
         }
     }
     
+    
 
 //funcion grafica utilisada en la clase Screen
 
@@ -191,9 +195,11 @@ public class Paciente extends Persona implements Pago{
     public Medico buscarMedico (Categoria categoria, Especialidad especialidad, Tipo tipoServicio){
 		return null;
     }
-    
-    public Cita agendarCita (Medico medico, String fecha) {
-    	return null;
+
+    public Cita agendarCita (Medico medico, Fecha fecha, Tipo tipo, Especialidad especialidad) {
+    	Cita nuevaCita = new Cita(medico, fecha, this, tipo, especialidad, this.categoria);
+    	this.citas.add(nuevaCita);
+    	return nuevaCita;
     }
     
     public void actualizarHistorialEnfermedades(Enfermedad nuevaEnfermedad) {
@@ -293,4 +299,23 @@ public class Paciente extends Persona implements Pago{
     public void setTalla(int talla) {
         this.talla = talla;
     }
+
+	private ArrayList<Cita> getCitas() {
+		return citas;
+	}
+
+	private void setCitas(ArrayList<Cita> citas) {
+		this.citas = citas;
+	}
+	
+	private void agregarCita(Cita cita) {
+		this.citas.add(cita);
+	}
+	
+	public Cita getUltimaCita() {
+		if (this.citas.isEmpty()) {
+			return null;
+		}
+		return this.citas.get(this.citas.size() - 1);
+	}
 }

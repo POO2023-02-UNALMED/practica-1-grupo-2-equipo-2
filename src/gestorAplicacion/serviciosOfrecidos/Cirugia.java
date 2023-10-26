@@ -22,8 +22,8 @@ public class Cirugia extends Consulta{
 	private String instruccionesEspeciales;
 	
 	// Constructor específico para Cirugia
-    public Cirugia(String nombre, int cantidad, Especialidad especialidad, Enfermedad enfermedad, Cita cita) {
-        super(nombre, cantidad, especialidad, enfermedad, cita); 
+    public Cirugia(Especialidad especialidad, Enfermedad enfermedad, Cita cita) {
+        super(especialidad, enfermedad, cita); 
     }
     
     /*Calcula el precio de la cirugía para un paciente dado.
@@ -49,8 +49,7 @@ public class Cirugia extends Consulta{
     @Override
     public String toString() {
         return  "* Cirugia con el médico: " + this.getCita().getMedico().getNombre() + "\n" +
-        		"* Nombre del tratamiento: " + this.getNombre() + "\n" +
-                "* Especialidad: " + this.getCita().getMedico().obtenerEspecialidad() + "\n" +
+                "* Especialidad: " + this.getCita().getMedico().getEspecialidad() + "\n" +
                 "* Enfermedad: " + this.getEnfermedad().getNombre() + "\n" +
                 "* Fecha: " + this.getCita().getFecha() + "\n" +
                 "* Precio: " + this.calcularPrecio(this.getCita().getPaciente()) + "\n";

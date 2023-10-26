@@ -7,17 +7,8 @@ import gestorAplicacion.sujeto.Paciente;
 
 public class Banco {
     private double cajaFuerte;
-    private Map<String, Double> preciosOrganos;
-
+    
     public Banco() {
-        // Inicializa el diccionario de precios de órganos
-        preciosOrganos = new HashMap<>();
-        preciosOrganos.put("Ojo", 750000.0);
-        preciosOrganos.put("Oreja", 950000.0);
-        preciosOrganos.put("Porcion de higado", 1235000.0);
-        preciosOrganos.put("Riñon", 1950000.0);
-        preciosOrganos.put("1 extremidad inferior", 2450000.0);
-        preciosOrganos.put("1 extremidad superior", 3000000.0);
         this.cajaFuerte = Double.MAX_VALUE; // Establece la caja fuerte con el valor máximo de double
     }
 
@@ -41,50 +32,43 @@ public class Banco {
         cajaFuerte -= dineroNecesario;
         // Agrega el dinero prestado como deuda en la cuenta bancaria del paciente
         paciente.getCuentaBancaria().agregarDeuda(dineroNecesario);
+        double saldoRestar = paciente.getCuentaBancaria().getSaldo();
+        paciente.getCuentaBancaria().debitar(saldoRestar);
         // Realiza la transferencia del dinero de la cuenta del paciente hacia la cuenta del hospital
-        this.transferencia(paciente, hospital ,costoTotalConIVA);
+        this.transferencia(hospital ,costoTotalConIVA);
         // Se marcan como pago todos los servicios que el paciente selecciono
         paciente.marcarServiciosComoPagados();
 
     }
     
 
-    public double calcularDineroDonacionOrganos(Paciente paciente) {
-        // Obtén el diccionario de precios de órganos del banco
-        Map<String, Double> preciosOrganos = this.getPreciosOrganos();
+    // Método para calcular el dinero de donación
+    public double calcularDineroDonacion(Paciente paciente) {
+        HashMap<Organos, Integer> donacionesPaciente = paciente.getCuentaBancaria().getOrganosDonar();
+        int montoTotalDonacion = 0;
 
-        // Obtén el diccionario de órganos donados por el paciente
-        Map<String, Integer> organosDonar = paciente.getCuentaBancaria().getOrganosDonar();
-
-        double dineroTotal = 0.0;
-
-        // Itera a través de los órganos donados
-        for (Map.Entry<String, Integer> entry : organosDonar.entrySet()) {
-            String organo = entry.getKey();
-            int cantidadDonada = entry.getValue();
-
-            // Verifica si el órgano existe en el diccionario de precios
-            if (preciosOrganos.containsKey(organo)) {
-                double precioOrgano = preciosOrganos.get(organo);
-                double dineroOrgano = precioOrgano * cantidadDonada;
-
-                dineroTotal += dineroOrgano;
-            }
+        // Recorre el mapa de donaciones del paciente
+        for (Organos organo : donacionesPaciente.keySet()) {
+            int cantidadDonada = donacionesPaciente.get(organo);
+            int precioOrgano = organo.getPrecio();
+            int montoDonadoPorOrgano = cantidadDonada * precioOrgano;
+            
+            // Agrega el monto donado por el órgano al monto total de donación
+            montoTotalDonacion += montoDonadoPorOrgano;
         }
 
-        return dineroTotal;
-    }
+        return montoTotalDonacion;}
 
     public void donacion(Paciente paciente, Hospital hospital, double costoTotalConIVA) {
         // Llama al método calcularDineroDonacionOrganos para obtener el dinero total de la donación de órganos
-        double dineroTotalDonacion = calcularDineroDonacionOrganos(paciente);
+        double dineroTotalDonacion = calcularDineroDonacion(paciente);
 
         // Calcula la diferencia entre el dinero total de la donación y el costo total con IVA
         double diferencia = dineroTotalDonacion - costoTotalConIVA;
 
         if (diferencia >= 0) {
             // Realiza la transferencia del dinero de la cuenta del paciente hacia la cuenta del hospital
-            this.transferencia(paciente, hospital ,costoTotalConIVA);
+            this.transferencia(hospital ,costoTotalConIVA);
             // Si el dinero de la donación cubre los costos de los servicios, marca los servicios como pagados
             paciente.marcarServiciosComoPagados();
             
@@ -114,10 +98,6 @@ public class Banco {
 
     public void setCajaFuerte(double cajaFuerte) {
         this.cajaFuerte = cajaFuerte;
-    }
-
-    public Map<String, Double> getPreciosOrganos() {
-        return preciosOrganos;
     }
 }
 

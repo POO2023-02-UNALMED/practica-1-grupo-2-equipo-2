@@ -22,17 +22,12 @@ public class Consulta extends Tratamiento{
     
     /* Este constructor se ejecuta cuando la cantidad de consultas necesarias para 
      * el tratamiento es solo una, devolviendo ese valor 1 en cantidad */
-    public Consulta(String nombre, Especialidad especialidad, Enfermedad enfermedad, Cita cita) {
-    	this(nombre, 1, especialidad, enfermedad, cita);
-	}
-
-    /* Este constructor se ejecuta cuando el medico necesita especificar la cantidad
-     * de consultas necesarias para un tratamiento*/
-	public Consulta(String nombre, int cantidad, Especialidad especialidad, Enfermedad enfermedad, Cita cita) {
-		super(nombre, cantidad, especialidad, enfermedad, cita);
+    public Consulta(Especialidad especialidad, Enfermedad enfermedad, Cita cita) {
+    	super(1, especialidad, enfermedad, cita);
 		Consulta.contador++;
     	this.ID = Consulta.contador; 
 	}
+
 	
     /*Calcula el precio de la consulta para un paciente dado.
      * Este método es una implementación de un método abstracto heredado de la clase Tratamiento.
@@ -57,8 +52,7 @@ public class Consulta extends Tratamiento{
 	@Override
 	public String toString() {
 	    return  "* Consulta con el médico: " + this.getCita().getMedico().getNombre() + "\n" +
-	    		"* Nombre del tratamiento: " + this.getNombre() +  "\n" +
-	    		"* Especialidad: " + this.getCita().getMedico().obtenerEspecialidad() + "\n" +
+	    		"* Especialidad: " + this.getCita().getMedico().getEspecialidad() + "\n" +
 	            "* Enfermedad: " + this.getEnfermedad().getNombre() + "\n" +
 	            "* Fecha: " + this.getCita().getFecha() + "\n" +
 	            "* Precio: " + this.calcularPrecio(this.getCita().getPaciente()) + "\n";

@@ -19,7 +19,7 @@ public class ListaProfesionales {
 //metodo para buscar medicos por medio de su especialidad
     public static Medico buscarMedicoPorEspecialidad(Especialidad especialidad) {
         for (Medico medico : profesionales) {
-            if (medico.obtenerEspecialidad() == especialidad) {
+            if (medico.getEspecialidad() == especialidad) {
                 return medico;
             }
         }

@@ -18,8 +18,8 @@ public abstract class Tratamiento extends EvaluacionMedica{
 	protected Cita cita;
 	
 	// Constructor
-	protected Tratamiento(String nombre, int cantidad, Especialidad especialidad, Enfermedad enfermedad, Cita cita) {
-        super(nombre, cantidad, especialidad);
+	protected Tratamiento(int cantidad, Especialidad especialidad, Enfermedad enfermedad, Cita cita) {
+        super(null, cantidad, especialidad);
         this.enfermedad = enfermedad;
         this.pagada = false; // Inicializa como no pagada
         this.cita = cita;

@@ -20,5 +20,5 @@ public interface Pago {
     
     /* Método abstracto que debe ser implementado por las clases que implementan 
      la interfaz para obtener servicios pendientes de pago.*/
-    public abstract String obtenerServiciosSinPagar();
+    public abstract String[] obtenerServiciosSinPagar();
 }

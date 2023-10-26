@@ -4,23 +4,55 @@
 
 package gestorAplicacion.adminHospitalaria;
 
-import gestorAplicacion.sujeto.Medico;
-import gestorAplicacion.sujeto.Paciente;
+import gestorAplicacion.sujeto.*;
+import gestorAplicacion.serviciosOfrecidos.*;
+import gestorAplicacion.instalaciones.*;
+
 
 public class Cita{
 
 	// Atributos
+	private static int contador = 0;
+	private final int referencia;
 	private Medico medico;
-	private String fecha;
+	private Fecha fecha;
 	private Paciente paciente;
+	private Tipo tipo;
+	private Especialidad especialidad;
+	private Categoria categoria;
+	
 
-	public Cita (Medico medico, String fecha, Paciente paciente){
+	public Cita (Medico medico, Fecha fecha, Paciente paciente, Tipo tipo, Especialidad especialidad, Categoria categoria){
 		this.medico = medico;
 		this.fecha = fecha;
 		this.paciente = paciente;
+		this.tipo = tipo;
+		this.especialidad = especialidad;
+		this.categoria = categoria;
+		
+		this.referencia = contador;
+		contador++;
 	}
    
 	// -------------------------------------------------------------- // 
+	
+	public boolean revisarDisponibilidadMedico(Fecha fecha, Medico medico) {
+		for (Cita cita: medico.getAgenda()) {
+			if (!cita.getFecha().comparar(fecha)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean revisarDisponibilidadHabitacion(Fecha fecha, Habitacion habitacion) {
+		for (Cita cita: medico.getAgenda()) {
+			if (!cita.getFecha().comparar(fecha)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	// Getter y Setter para el atributo 'medico'
 	public Medico getMedico() {
@@ -32,11 +64,11 @@ public class Cita{
 	}
 
 	// Getter y Setter para el atributo 'fecha'
-	public String getFecha() {
+	public Fecha getFecha() {
 	    return fecha;
 	}
 
-	public void setFecha(String fecha) {
+	public void setFecha(Fecha fecha) {
 	    this.fecha = fecha;
 	}
 
@@ -48,4 +80,9 @@ public class Cita{
 	public void setPaciente(Paciente paciente) {
 	    this.paciente = paciente;
 	}
+
+	private int getReferencia() {
+		return referencia;
+	}
+	
 }

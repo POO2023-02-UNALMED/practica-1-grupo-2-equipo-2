@@ -3,6 +3,7 @@ import gestorAplicacion.serviciosOfrecidos.*;
 import java.util.Scanner;
 import gestorAplicacion.sujeto.*;
 import java.util.ArrayList;
+import static uiMain.Screen.SCANNER;
 
 public class F4 {
     public static final String RESET = "\u001B[0m";
@@ -11,7 +12,7 @@ public class F4 {
     public static final String BLUE = "\u001B[34m";
     public static final String PURPLE = "\u001B[35m";
     
-    private static final Scanner SC_RUTINA = new Scanner(System.in);
+    static final Scanner SCANNER_RUTINA = SCANNER;
     public static Rutina rutina;
     
     public static void screenRutina(Paciente paciente) {
@@ -24,32 +25,8 @@ public class F4 {
        System.out.println(BLUE + "La rutina ha sido guardad en la historia clinica" + RESET);
        System.out.println(BLUE + "Gracias por usar nuestro generador :D" + RESET);
        
-       
-       SC_RUTINA.close();
-
     }
     
-    //Indica cuando el usuario ingreso una entrada valida
-    public static void indicarEntradaValida() {
-       eraseScreen();
-       System.out.println(GREEN + "Entrada aceptada, procesando informacion..." + RESET);
-    }
-    
-    //Indica cuando el usuario ingreso una entrada invalida
-    public static void indicarEntradaInvalida() {
-       eraseScreen();
-       System.out.println(RED + "Entrada invalida, por favor intente nuevamente " + RESET);
-
-    }
-
-    //Borra la pantalla
-    //Borra la pantalla
-    public static void eraseScreen(){
-
-       System.out.print("\033[H\033[2J");
-       System.out.flush();
-    }
-
     public static void imprimirTablaEjercicios(ArrayList<Ejercicio> elementos) {
        // Definir el ancho de cada columna
        int ancho = 48;
@@ -76,8 +53,12 @@ public class F4 {
           System.out.println("|");  // Salta a una nueva línea si se agregaron espacios en blanco
        }
     }
-
-    /* Imprime todos los ejercicios que puede usar el paciente segun su objetivo y restriccion */
+    
+    /* Metodo que pide una entrada hasta que el usario proporcione un entero, si proporciona una entrada de otro tipo imprime un mensaje de entrada
+     * y continúa hasta que el usuario proporcione una entrada válida, como argumento se debe pasar el mensaje que se debe utilizar para que el usuario
+     * ingrese su entero, ej: "Ingrese su edad"*/
+    
+	 /* Imprime todos los ejercicios que puede usar el paciente segun su objetivo y restriccion */
     public static void mostrarEjercicios() {
 
        ArrayList<Ejercicio>ejerciciosParaMostrar = rutina.getEjerciciosPosibles();
@@ -113,7 +94,7 @@ public class F4 {
           }
 
        } catch (IllegalArgumentException error) {
-          indicarEntradaInvalida();
+          F0.indicarEntradaInvalida();
        }
        return ejerciciosConvertidos;
     }
@@ -126,16 +107,16 @@ public class F4 {
        do {
           System.out.println(BLUE + "Que tipo de terapia desea aplicar?" + RESET);
           System.out.println(BLUE + "Ingrese el tipo de terapia entre: ACONDICIONAMIENTO o REHABILITACION" + RESET);
-          String entrada = SC_RUTINA.nextLine().toUpperCase();
+          String entrada = SCANNER_RUTINA.nextLine().toUpperCase();
 
           try {
              terapiaSeleccionada = TipoTerapia.valueOf(entrada);
           } catch (IllegalArgumentException error) {
-             indicarEntradaInvalida();
+             F0.indicarEntradaInvalida();
           }
 
        } while (terapiaSeleccionada == null);
-       indicarEntradaValida();
+       F0.indicarEntradaValida();
 
 
        do {
@@ -151,15 +132,15 @@ public class F4 {
              System.out.println(PURPLE + "RECUPERACION_LESION_OSEA" + RESET);
              System.out.println(PURPLE + "RECUPERACION_LESION_MUSCULAR" + RESET);
           }
-          String entrada = SC_RUTINA.nextLine().toUpperCase();
+          String entrada = SCANNER_RUTINA.nextLine().toUpperCase();
 
           try {
              objetivoSeleccionado = TipoObjetivo.valueOf(entrada);
           } catch (IllegalArgumentException error) {
-             indicarEntradaInvalida();
+             F0.indicarEntradaInvalida();
           }
        } while (objetivoSeleccionado == null);
-       indicarEntradaValida();
+       F0.indicarEntradaValida();
 
 
        rutina = new Rutina(paciente, terapiaSeleccionada, objetivoSeleccionado);
@@ -173,18 +154,18 @@ public class F4 {
        do {
           mostrarEjercicios();
 
-          String entrada = SC_RUTINA.nextLine().toUpperCase();
+          String entrada = SCANNER_RUTINA.nextLine().toUpperCase();
           ArrayList<Ejercicio>ejerciciosConvertidos = convertirEjercicios(entrada);
 
 
           try {
              rutina.setEjerciciosOrdenados(ejerciciosConvertidos);
           } catch (IllegalArgumentException error) {
-             indicarEntradaInvalida();
+             F0.indicarEntradaInvalida();
 
           }
        } while (rutina.getEjerciciosOrdenados().size() == 0);
-       indicarEntradaValida();
+       F0.indicarEntradaValida();
 
     }
 
@@ -193,28 +174,28 @@ public class F4 {
        String entrada;
 
        do {
-          eraseScreen();
+          F0.eraseScreen();
           mostrarEjerciciosOrdenados();
 
           System.out.println(BLUE + "Desea agregar mas ejercicios? " + RESET);
           System.out.println(BLUE + "Ingrese " + PURPLE + "Y" + BLUE + " para si o " + PURPLE + "N" + BLUE + " para no" + RESET);
 
-          entrada = SC_RUTINA.nextLine().toUpperCase();
+          entrada = SCANNER_RUTINA.nextLine().toUpperCase();
           if(!entrada.equals("Y") && !entrada.equals("N") ) {
-             indicarEntradaInvalida();
+             F0.indicarEntradaInvalida();
           }
 
        } while (!entrada.equals("Y") && !entrada.equals("N"));
 
-       indicarEntradaValida();
+       F0.indicarEntradaValida();
 
        if (entrada.equals("Y")) {
           ArrayList <Ejercicio> ejerciciosConvertidos = new ArrayList<>();
           do {
-             eraseScreen();
+             F0.eraseScreen();
              mostrarEjerciciosOrdenados();
              mostrarEjercicios();
-             String entradaEjercicios = SC_RUTINA.nextLine().toUpperCase();
+             String entradaEjercicios = SCANNER_RUTINA.nextLine().toUpperCase();
 
              ejerciciosConvertidos = convertirEjercicios(entradaEjercicios);
 
@@ -223,13 +204,13 @@ public class F4 {
                    rutina.agregarEjercicioOrdenado(ejerciciosConvertidos.get(i));
                 }
              } catch (IllegalArgumentException error) {
-                indicarEntradaInvalida();
+                F0.indicarEntradaInvalida();
 
              }
 
           } while(ejerciciosConvertidos.size() == 0);
 
-          indicarEntradaValida();
+          F0.indicarEntradaValida();
        }
     }
 
@@ -238,20 +219,20 @@ public class F4 {
        String entrada;
 
        do {
-          eraseScreen();
+          F0.eraseScreen();
           mostrarEjerciciosOrdenados();
 
           System.out.println(BLUE + "Desea eliminar ejercicios? " + RESET);
           System.out.println(BLUE + "Ingrese " + PURPLE + "Y" + BLUE + " para si o " + PURPLE + "N" + BLUE + " para no" + RESET);
 
-          entrada = SC_RUTINA.nextLine().toUpperCase();
+          entrada = SCANNER_RUTINA.nextLine().toUpperCase();
           if(!entrada.equals("Y") && !entrada.equals("N") ) {
-             indicarEntradaInvalida();
+             F0.indicarEntradaInvalida();
           }
 
        } while (!entrada.equals("Y") && !entrada.equals("N"));
 
-       indicarEntradaValida();
+       F0.indicarEntradaValida();
 
        if (entrada.equals("Y")) {
 
@@ -260,18 +241,18 @@ public class F4 {
 
           do {
              System.out.println(BLUE + "Ingrese el nombre de los ejercicios que desea eliminar separados por un solo espacio " + RESET);
-             ejerciciosConvertir = SC_RUTINA.nextLine().toUpperCase();
+             ejerciciosConvertir = SCANNER_RUTINA.nextLine().toUpperCase();
              ejerciciosConvertidos = convertirEjercicios(ejerciciosConvertir);
              try {
                 for(int i = 0; i < ejerciciosConvertidos.size(); i++) {
                    rutina.eliminarEjercicio(ejerciciosConvertidos.get(i));
                 }
              } catch (IllegalArgumentException error) {
-                indicarEntradaInvalida();
+                F0.indicarEntradaInvalida();
 
              }
           } while (ejerciciosConvertidos.size() == 0);
-          indicarEntradaValida();
+          F0.indicarEntradaValida();
           mostrarEjerciciosOrdenados();
        }
     }

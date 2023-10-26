@@ -1,0 +1,58 @@
+package uiMain;
+
+import gestorAplicacion.adminHospitalaria.*;
+import gestorAplicacion.instalaciones.*;
+import gestorAplicacion.serviciosOfrecidos.*;
+import gestorAplicacion.sujeto.*;
+
+public class App {
+    public static void main(String[] args) {
+		Banco bancoPrueba = new Banco();
+		Hospital hospitalPrueba = new Hospital("hospitalPrueba", "direccion");
+		
+		Medico medicoPrueba = new Medico(Categoria.AFICIONADOS, 123, "Pepo", Especialidad.FISIOTERAPEUTA);
+		Medico medicoPrueba1 = new Medico(Categoria.ALTO_RENDIMIENTO, 321, "Pepito", Especialidad.NUTRICIONISTA);
+		Medico medicoPrueba2 = new Medico(Categoria.OLIMPICO, 111, "Cleotilde", Especialidad.OPTOMETRISTA);
+		
+		Paciente pacientePrueba = new Paciente(Categoria.AFICIONADOS, 345, "Tartaglia"); 
+		Paciente pacientePrueba1 = new Paciente(Categoria.ALTO_RENDIMIENTO, 567, "Zhongli"); 
+		Paciente pacientePrueba2 = new Paciente(Categoria.OLIMPICO, 789, "Furina"); 
+		
+		hospitalPrueba.anadirPaciente(pacientePrueba);
+		hospitalPrueba.anadirPaciente(pacientePrueba1);
+		hospitalPrueba.anadirPaciente(pacientePrueba2);
+		
+		pacientePrueba.getCuentaBancaria().setSaldo(2000000);
+		pacientePrueba1.getCuentaBancaria().setSaldo(10000);
+		pacientePrueba1.getCuentaBancaria().setEstadoDeReporte(true);
+		pacientePrueba2.getCuentaBancaria().setSaldo(0);
+		pacientePrueba2.getCuentaBancaria().setEstadoDeReporte(false);
+		
+		
+		Enfermedad enfermedad = new Enfermedad("Eleazar", 3, Especialidad.FISIOTERAPEUTA, "ConocmientoProhibido", "Escamas");
+		Enfermedad enfermedad1 = new Enfermedad("Eleazar", 3, Especialidad.FISIOTERAPEUTA, "ConocmientoProhibido", "Escamas");
+		Enfermedad enfermedad2 = new Enfermedad("Eleazar", 3, Especialidad.FISIOTERAPEUTA, "ConocmientoProhibido", "Escamas");
+		
+		Cita cita = new Cita(medicoPrueba, "23 de julio" , pacientePrueba); //Cirugia
+		Cita cita1 = new Cita(medicoPrueba1, "4 de septiembre", pacientePrueba1); //Cirugia
+		Cita cita2 = new Cita(medicoPrueba2, "45 de enero", pacientePrueba2); //Terapia
+		Cita cita3 = new Cita(medicoPrueba, "12 de diciembre", pacientePrueba1); //Cirugia
+		Cita cita4 = new Cita(medicoPrueba , "65 de agosto", pacientePrueba2); //Consulta
+		Cita cita5 = new Cita(medicoPrueba2, "78 de abril", pacientePrueba2); //Consulta
+		Cirugia cirugia = new Cirugia("irminsul" , 4, Especialidad.FISIOTERAPEUTA, enfermedad, cita);
+		Cirugia cirugia1 = new Cirugia("arboldecabeza" , 4, Especialidad.FISIOTERAPEUTA, enfermedad1, cita1);
+		Cirugia cirugia2 = new Cirugia("mondstand" , 4, Especialidad.FISIOTERAPEUTA, enfermedad, cita3);
+		Terapia terapia = new Terapia("liyue", 4, Especialidad.ORTOPEDISTA, enfermedad2, cita2 );
+		Consulta consulta = new Consulta("inazuma" , 3, Especialidad.FISIOTERAPEUTA, enfermedad2, cita4);
+		Consulta consulta1 = new Consulta("sumeru" , 6, Especialidad.NUTRICIONISTA, enfermedad2, cita5);
+		
+		pacientePrueba.actualizarHistorialCirugias(cirugia);
+		pacientePrueba1.actualizarHistorialCirugias(cirugia1);
+		pacientePrueba1.actualizarHistorialCirugias(cirugia2);
+		pacientePrueba2.actualizarHistorialConsultas(consulta1);
+		pacientePrueba2.actualizarHistorialConsultas(consulta);
+		pacientePrueba2.actualizarHistorialTerapias(terapia);
+		
+		F5.facturacion(hospitalPrueba, bancoPrueba);
+    }
+}

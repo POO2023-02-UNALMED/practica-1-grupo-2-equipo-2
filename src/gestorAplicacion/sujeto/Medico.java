@@ -26,7 +26,11 @@ public class Medico extends Persona{
                "Especialidad: " + especialidad;
     }
     
-    public Especialidad obtenerEspecialidad() {
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
+    }
+    
+    public Especialidad getEspecialidad() {
         return especialidad;
     }
     //Metodos para definir la agenda
@@ -41,5 +45,5 @@ public class Medico extends Persona{
     public void agregarCita(Cita cita) {
         agenda.add(cita);
     }
-
+    
 }

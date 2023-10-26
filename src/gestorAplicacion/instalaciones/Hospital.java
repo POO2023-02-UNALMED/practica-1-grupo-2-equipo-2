@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import gestorAplicacion.sujeto.CuentaBancaria;
-import gestorAplicacion.sujeto.Paciente;
+import gestorAplicacion.sujeto.*;
 import uiMain.ConsoleColors;
 
 /*Descripción: Esta clase se encarga de describir el funcionamiento del hospital y de tratar la lista de los pacientes que estan en el
@@ -21,13 +21,17 @@ public class Hospital {
     private String direcion;
     public ArrayList<Habitacion> habitaciones;
     public ArrayList<Paciente> pacientes;
+    public ArrayList<Medico> medicos;
+    public ArrayList<Enfermedad> enfermedades;
 
     //Constructor principal
     public Hospital(String nombre,String direcion){
         this.nombre = nombre;
         this.direcion = direcion;
+        this.enfermedades = new ArrayList<Enfermedad>();
         this.habitaciones = new ArrayList<Habitacion>();
         this.pacientes = new ArrayList<Paciente>();
+        this.medicos = new ArrayList<Medico>(); 
         this.cuentaBancaria = new CuentaBancaria();
     }
 
@@ -46,8 +50,10 @@ public class Hospital {
     //funcion que hace el enlace entre un paciente y un habitacion
     public void anadirPaciente(Paciente p){
         this.pacientes.add(p);
+    }
+    
+    public void asignarHabitacion(Paciente p) {
         this.buscarhabitacionLibre().reservarHabitacion(p);
-
     }
 
     // fonction que returna el paciente segun su numero de Identificacion, returna null si no esta en el hospital
@@ -136,7 +142,7 @@ public class Hospital {
                                 break;
                                 } else {
                                 	// El paciente accedio al plan de pago alternativo
-                                	double dineroTotalDonacion = bancoSeleccionado.calcularDineroDonacionOrganos(pacienteSeleccionado);
+                                	double dineroTotalDonacion = bancoSeleccionado.calcularDineroDonacion(pacienteSeleccionado);
                                 	double saldoAntesTransferencia = pacienteSeleccionado.getCuentaBancaria().getSaldo();
                          
                                     bancoSeleccionado.donacion(pacienteSeleccionado, this , costoTotalConIVA);
@@ -242,7 +248,7 @@ public class Hospital {
                                 
                                 } else {
                                 	// El paciente accedio al plan de pago alternativo
-                                	double dineroTotalDonacion = bancoSeleccionado.calcularDineroDonacionOrganos(pacienteSeleccionado);
+                                	double dineroTotalDonacion = bancoSeleccionado.calcularDineroDonacion(pacienteSeleccionado);
                                 	double saldoAntesTransferencia = pacienteSeleccionado.getCuentaBancaria().getSaldo();
                          
                                     bancoSeleccionado.donacion(pacienteSeleccionado, this , costoTotalConIVA);
@@ -334,5 +340,52 @@ public class Hospital {
     public void setDirecion(String direcion) {
         this.direcion = direcion;
     }
-   
+    
+    public ArrayList<Habitacion> getListaHabitaciones () {
+    	return this.habitaciones;
+    }
+    
+    public void setListaHabitaciones (ArrayList<Habitacion> listaHabitaciones) {
+    	this.habitaciones = listaHabitaciones;
+    }
+    
+    public void addHabitacion (Habitacion habitacion) {
+    	this.habitaciones.add(habitacion);
+    }
+    
+    public ArrayList<Paciente> getListaPacientes () {
+    	return this.pacientes;
+    }
+    
+    public void setListaPacientes (ArrayList<Paciente> listaPacientes) {
+    	this.pacientes = listaPacientes;
+    }
+    
+    public void addPaciente (Paciente paciente) {
+    	this.pacientes.add(paciente);
+    }
+    
+    public ArrayList<Medico> getListaMedicos () {
+    	return this.medicos;
+    }
+    
+    public void setListaMedicos (ArrayList<Medico> listaMedicos) {
+    	this.medicos = listaMedicos;
+    }
+    
+    public void addMedicos (Medico medico) {
+    	this.medicos.add(medico);
+    }
+    
+    public ArrayList<Enfermedad> getListaEnfermedades () {
+    	return this.enfermedades;
+    }
+    
+    public void setListaEnfermedades (ArrayList<Enfermedad> listaEnfermedades) {
+    	this.enfermedades = listaEnfermedades;
+    }
+    
+    public void addEnfermedad (Enfermedad enfermedad) {
+    	this.enfermedades.add(enfermedad);
+    }
 }
